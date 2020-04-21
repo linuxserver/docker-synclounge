@@ -1,0 +1,31 @@
+---
+
+# jenkins variables
+project_name: docker-synclounge
+external_type: github-commit
+release_type: stable
+release_tag: latest
+ls_branch: master
+repo_vars:
+  - EXT_GIT_BRANCH = 'master'
+  - EXT_USER = 'samcm'
+  - EXT_REPO = 'synclounge'
+  - BUILD_VERSION_ARG = 'SYNCLOUNGE_COMMIT'
+  - LS_USER = 'linuxserver'
+  - LS_REPO = 'docker-synclounge'
+  - CONTAINER_NAME = 'synclounge'
+  - DOCKERHUB_IMAGE = 'linuxserver/synclounge'
+  - DEV_DOCKERHUB_IMAGE = 'lsiodev/synclounge'
+  - PR_DOCKERHUB_IMAGE = 'lspipepr/synclounge'
+  - DIST_IMAGE = 'alpine'
+  - MULTIARCH='true'
+  - CI='true'
+  - CI_WEB='false'
+  - CI_PORT='8088'
+  - CI_SSL='false'
+  - CI_DELAY='120'
+  - CI_DOCKERENV='EXTERNAL_URL=0.0.0.0'
+  - CI_AUTH=''
+  - CI_WEBPATH=''
+sponsor_links:
+  - { name: "SyncLounge", url: "http://docs.synclounge.tv/contributing/donating/" }

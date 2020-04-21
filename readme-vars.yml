@@ -1,0 +1,51 @@
+---
+
+# project information
+project_name: synclounge
+project_url: "https://github.com/samcm/synclounge"
+project_logo: "http://synclounge.tv/content/images/2019/12/logo-long-light-1.png"
+project_blurb: "[{{ project_name|capitalize }}]({{ project_url }}) is a third party tool that allows you to watch Plex in sync with your friends/family, wherever you are."
+project_lsio_github_repo_url: "https://github.com/linuxserver/docker-{{ project_name }}"
+
+# supported architectures
+available_architectures:
+  - { arch: "{{ arch_x86_64 }}", tag: "amd64-latest"}
+  - { arch: "{{ arch_arm64 }}", tag: "arm64v8-latest"}
+  - { arch: "{{ arch_armhf }}", tag: "arm32v7-latest"}
+
+# container parameters
+common_param_env_vars_enabled: false
+param_container_name: "{{ project_name }}"
+param_usage_include_vols: false
+param_volumes:
+param_usage_include_ports: true
+param_ports:
+  - { external_port: "8088", internal_port: "8088", port_desc: "Web app port" }
+  - { external_port: "8089", internal_port: "8089", port_desc: "Server port" }
+param_usage_include_env: true
+param_env_vars:
+  - { env_var: "TZ", env_value: "Europe/London", desc: "Specify a timezone to use EG Europe/London"}
+  - { env_var: "EXTERNAL_URL", env_value: "your.domain.com", desc: "The webapp and the server will be accessible at this address via reverse proxy (alternatively, you can define an external IP address)." }
+
+# optional container parameters
+opt_param_usage_include_env: true
+opt_param_env_vars:
+  - { env_var: "EXTERNAL_SERVER_PORT", env_value: "80", desc: "If you're not using a reverse proxy, you can define the external port for the server here." }
+  - { env_var: "AUTH_USERS", env_value: "plexuser1,plexuser2,plexuser3", desc: "If set, only the users defined here will be able to access the server. Use e-mails or plex usernames, comma separated, no spaces." }
+  - { env_var: "AUTOJOIN_ENABLED", env_value: "false", desc: "Set to `true` to let users autojoin the server and a room (specified by the `AUTOJOIN_ROOM` var)." }
+  - { env_var: "AUTOJOIN_ROOM", env_value: "roomname", desc: "Set the room name for auto joining (requires `AUTOJOIN_ENABLED` set to `true`)." }
+  - { env_var: "AUTOJOIN_PASSWORD", env_value: "password", desc: "Set the password for the room for auto joining (requires `AUTOJOIN_ENABLED` set to `true`)." }
+
+
+# optional parameters
+optional_block_1: false
+optional_block_1_items: ""
+
+# application setup block
+app_setup_block_enabled: true
+app_setup_block: |
+  The web app is accessible at `http://SERVERIP:8088`. The server by default is available at `http://SERVERIP:EXTERNAL_SERVER_PORT/slserver`.
+
+# changelog
+changelogs:
+  - { date: "04.21.20:", desc: "Intial Release." }
