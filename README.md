@@ -38,7 +38,7 @@ Find us at:
 
 [Synclounge](https://github.com/samcm/synclounge) is a third party tool that allows you to watch Plex in sync with your friends/family, wherever you are.
 
-[![synclounge](http://synclounge.tv/content/images/2019/12/logo-long-light-1.png)](https://github.com/samcm/synclounge)
+[![synclounge](https://raw.githubusercontent.com/linuxserver/docker-templates/master/linuxserver.io/img/synclounge-banner.png)](https://github.com/samcm/synclounge)
 
 ## Supported Architectures
 
@@ -136,6 +136,8 @@ Will set the environment variable `PASSWORD` based on the contents of the `/run/
 ## Application Setup
 
 The web app is accessible at `http://SERVERIP:8088`. The server by default is available at `http://SERVERIP:EXTERNAL_SERVER_PORT/slserver`.
+
+Note: The server address is hardcoded to `http` as `https` is not recommended due to not working with external plex clients. When you reverse proxy, use `http` as the external proto for both webapp and server.
 
 
 ## Docker Mods

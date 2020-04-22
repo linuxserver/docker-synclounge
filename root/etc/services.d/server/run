@@ -2,16 +2,5 @@
 
 cd /app/synclounge || exit
 
-export \
-	WEB_ACCESSURL=${EXTERNAL_URL:-$(curl icanhazip.com)} \
-	SERVERS=$(cat /defaults/servers.json)
-
-if [ "${AUTOJOIN_ENABLED}" == "true" ]; then
-	export AUTOJOIN_SERVERURL="${EXTERNAL_URL:-$(curl icanhazip.com)}/slserver"
-fi
-if [ -n "${AUTH_USERS}" ]; then
-	export AUTHENTICATION=$(cat /defaults/authentication.json)
-fi
-
 exec \
 	s6-setuidgid abc npm run server
