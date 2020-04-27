@@ -35,7 +35,7 @@ pipeline {
     CI_DELAY='120'
     CI_DOCKERENV='EXTERNAL_URL=0.0.0.0'
     CI_AUTH=''
-    CI_WEBPATH=''
+    CI_WEBPATH='/slweb'
   }
   stages {
     // Setup all the basic environment variables needed for the build

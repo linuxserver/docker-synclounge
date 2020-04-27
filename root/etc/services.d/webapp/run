@@ -9,7 +9,7 @@ export \
 if [ "${AUTOJOIN_ENABLED}" == "true" ]; then
 	export AUTOJOIN_SERVERURL="${EXTERNAL_URL:-$(curl icanhazip.com)}/slserver"
 fi
-if [ -n "${AUTH_USERS}" ]; then
+if [ -n "${AUTH_LIST}" ]; then
 	export AUTHENTICATION=$(cat /defaults/authentication.json)
 fi
 

@@ -7,7 +7,7 @@ LABEL build_version="Linuxserver.io version:- ${VERSION} Build-date:- ${BUILD_DA
 LABEL maintainer="alex-phillips"
 
 # environment settings
-ENV HOME="/app"
+ENV HOME="/app" WEB_ROOT="/slweb"
 
 RUN \
  echo "**** install build packages ****" && \

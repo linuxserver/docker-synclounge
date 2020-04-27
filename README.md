@@ -67,7 +67,7 @@ docker create \
   -e TZ=Europe/London \
   -e EXTERNAL_URL=your.domain.com \
   -e EXTERNAL_SERVER_PORT=80 `#optional` \
-  -e AUTH_USERS=plexuser1,plexuser2,plexuser3 `#optional` \
+  -e AUTH_LIST=plexuser1,plexuser2,email1,machineid1 `#optional` \
   -e AUTOJOIN_ENABLED=false `#optional` \
   -e AUTOJOIN_ROOM=roomname `#optional` \
   -e AUTOJOIN_PASSWORD=password `#optional` \
@@ -93,7 +93,7 @@ services:
       - TZ=Europe/London
       - EXTERNAL_URL=your.domain.com
       - EXTERNAL_SERVER_PORT=80 #optional
-      - AUTH_USERS=plexuser1,plexuser2,plexuser3 #optional
+      - AUTH_LIST=plexuser1,plexuser2,email1,machineid1 #optional
       - AUTOJOIN_ENABLED=false #optional
       - AUTOJOIN_ROOM=roomname #optional
       - AUTOJOIN_PASSWORD=password #optional
@@ -114,7 +114,7 @@ Container images are configured using parameters passed at runtime (such as thos
 | `-e TZ=Europe/London` | Specify a timezone to use EG Europe/London |
 | `-e EXTERNAL_URL=your.domain.com` | The webapp and the server will be accessible at this address via reverse proxy (alternatively, you can define an external IP address). |
 | `-e EXTERNAL_SERVER_PORT=80` | If you're not using a reverse proxy, you can define the external port for the server here. |
-| `-e AUTH_USERS=plexuser1,plexuser2,plexuser3` | If set, only the users defined here will be able to access the server. Use e-mails or plex usernames, comma separated, no spaces. |
+| `-e AUTH_LIST=plexuser1,plexuser2,email1,machineid1` | If set, only the users defined here and the users of the plex servers defined here will be able to access the server. Use e-mails, plex usernames and/or plex server machine ids, comma separated, no spaces. |
 | `-e AUTOJOIN_ENABLED=false` | Set to `true` to let users autojoin the server and a room (specified by the `AUTOJOIN_ROOM` var). |
 | `-e AUTOJOIN_ROOM=roomname` | Set the room name for auto joining (requires `AUTOJOIN_ENABLED` set to `true`). |
 | `-e AUTOJOIN_PASSWORD=password` | Set the password for the room for auto joining (requires `AUTOJOIN_ENABLED` set to `true`). |

@@ -2,6 +2,6 @@
   "mechanism": "plex",
   "type": ["server", "user"],
   "authorized": [
-    "AUTH_USERS"
-    ]
-  }
+    "AUTH_LIST"
+  ]
+}
