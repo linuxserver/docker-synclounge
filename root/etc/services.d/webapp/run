@@ -3,7 +3,7 @@
 cd /app/synclounge || exit
 
 export \
-	WEB_ACCESSURL=${EXTERNAL_URL:-$(curl icanhazip.com)} \
+	WEB_ACCESSURL="${EXTERNAL_URL:-$(curl icanhazip.com)}/slweb" \
 	SERVERS=$(cat /defaults/servers.json)
 
 if [ "${AUTOJOIN_ENABLED}" == "true" ]; then
