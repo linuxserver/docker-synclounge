@@ -8,7 +8,7 @@ else
 fi
 
 if [ -n "${AUTH_LIST}" ]; then
-    AUTH_USERS=$(echo ${AUTH_LIST} | sed 's|,|",\\n    "|g')
+    AUTH_LIST=$(echo ${AUTH_LIST} | sed 's|,|",\\n    "|g')
     sed -i "s|AUTH_LIST|${AUTH_LIST}|g" /defaults/authentication.json
 fi
 
