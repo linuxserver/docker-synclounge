@@ -1,0 +1,19 @@
+#!/usr/bin/with-contenv bash
+
+EXTERNAL_URL=${EXTERNAL_URL:-$(curl icanhazip.com)}
+if [ -n "${EXTERNAL_SERVER_PORT}" ]; then
+    sed -i "s|SERVERURL|http://${EXTERNAL_URL}:${EXTERNAL_SERVER_PORT}|g" /defaults/servers.json
+else
+    sed -i "s|SERVERURL|http://${EXTERNAL_URL}|g" /defaults/servers.json
+fi
+
+if [ -n "${AUTH_LIST}" ]; then
+    AUTH_LIST=$(echo ${AUTH_LIST} | sed 's|,|",\\n    "|g')
+    sed -i "s|AUTH_LIST|${AUTH_LIST}|g" /defaults/authentication.json
+fi
+
+# permissions
+if [ -n "${PUID}" ] && [ "${PUID}" != "911" ]; then
+    echo "Fixing permissions. FYI, you don't need to set the PUID env var because this app is stateless"
+    chown -R abc:abc /app
+fi
