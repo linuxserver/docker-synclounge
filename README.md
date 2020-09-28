@@ -214,5 +214,6 @@ Once registered you can define the dockerfile to use with `-f Dockerfile.aarch64
 
 ## Versions
 
+* **27.09.20:** - Updating the external repo endpoint.
 * **01.06.20:** - Rebasing to alpine 3.12.
 * **05.11.20:** - Intial Release.

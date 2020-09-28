@@ -17,7 +17,7 @@ pipeline {
     GITLAB_TOKEN=credentials('b6f0f1dd-6952-4cf6-95d1-9c06380283f0')
     GITLAB_NAMESPACE=credentials('gitlab-namespace-id')
     EXT_GIT_BRANCH = 'master'
-    EXT_USER = 'samcm'
+    EXT_USER = 'synclounge'
     EXT_REPO = 'synclounge'
     BUILD_VERSION_ARG = 'SYNCLOUNGE_COMMIT'
     LS_USER = 'linuxserver'
