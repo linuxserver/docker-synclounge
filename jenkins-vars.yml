@@ -8,7 +8,7 @@ release_tag: latest
 ls_branch: master
 repo_vars:
   - EXT_GIT_BRANCH = 'master'
-  - EXT_USER = 'samcm'
+  - EXT_USER = 'synclounge'
   - EXT_REPO = 'synclounge'
   - BUILD_VERSION_ARG = 'SYNCLOUNGE_COMMIT'
   - LS_USER = 'linuxserver'

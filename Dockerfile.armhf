@@ -20,10 +20,10 @@ RUN \
     jq && \
  echo "**** install SyncLounge ****" && \
  if [ -z ${SYNCLOUNGE_COMMIT+x} ]; then \
-	SYNCLOUNGE_COMMIT=$(curl -sX GET https://api.github.com/repos/samcm/synclounge/commits/master \
+	SYNCLOUNGE_COMMIT=$(curl -sX GET https://api.github.com/repos/synclounge/synclounge/commits/master \
 	| jq -r '. | .sha'); \
  fi && \
- git clone https://github.com/samcm/synclounge /app/synclounge && \
+ git clone https://github.com/synclounge/synclounge /app/synclounge && \
  cd /app/synclounge && \
  git checkout ${SYNCLOUNGE_COMMIT} && \
  npm install && \
