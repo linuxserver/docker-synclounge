@@ -2,9 +2,9 @@
 
 EXTERNAL_URL=${EXTERNAL_URL:-$(curl icanhazip.com)}
 if [ -n "${EXTERNAL_SERVER_PORT}" ]; then
-    sed -i "s|SERVERURL|http://${EXTERNAL_URL}:${EXTERNAL_SERVER_PORT}|g" /defaults/servers.json
+    sed -i "s|SERVERURL|${EXTERNAL_URL}:${EXTERNAL_SERVER_PORT}|g" /defaults/servers.json
 else
-    sed -i "s|SERVERURL|http://${EXTERNAL_URL}|g" /defaults/servers.json
+    sed -i "s|SERVERURL|${EXTERNAL_URL}|g" /defaults/servers.json
 fi
 
 if [ -n "${AUTH_LIST}" ]; then
