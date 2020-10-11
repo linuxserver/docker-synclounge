@@ -50,6 +50,7 @@ app_setup_block: |
 
 # changelog
 changelogs:
+  - { date: "11.10.20:", desc: "Pin builds to upstream commit `6aecc9bd` while evaluating the breaking changes upstream." }
   - { date: "27.09.20:", desc: "Updating the external repo endpoint." }
   - { date: "01.06.20:", desc: "Rebasing to alpine 3.12." }
   - { date: "05.11.20:", desc: "Intial Release." }
