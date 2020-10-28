@@ -2,12 +2,12 @@ FROM lsiobase/alpine:3.12
 
 # set version label
 ARG BUILD_DATE
-ARG SYNCLOUNGE_COMMIT
+ARG SYNCLOUNGE_RELEASE
 LABEL build_version="Linuxserver.io version:- ${VERSION} Build-date:- ${BUILD_DATE}"
 LABEL maintainer="alex-phillips"
 
 # environment settings
-ENV HOME="/app" WEB_ROOT="/slweb"
+ENV HOME="/app"
 
 RUN \
  echo "**** install build packages ****" && \
@@ -19,17 +19,12 @@ RUN \
     git \
     jq && \
  echo "**** install SyncLounge ****" && \
- if [ -z ${SYNCLOUNGE_COMMIT+x} ]; then \
-	SYNCLOUNGE_COMMIT=$(curl -sX GET https://api.github.com/repos/synclounge/synclounge/commits/master \
-	| jq -r '. | .sha'); \
+ if [ -z ${SYNCLOUNGE_RELEASE+x} ]; then \
+    SYNCLOUNGE_RELEASE=$(curl -sX GET "https://registry.npmjs.org/synclounge/" \
+    | jq -r '."dist-tags".latest'); \
  fi && \
- git clone https://github.com/synclounge/synclounge /app/synclounge && \
- cd /app/synclounge && \
- git checkout ${SYNCLOUNGE_COMMIT} && \
- npm install && \
- npm run build && \
+ npm install -g --production synclounge@"$SYNCLOUNGE_RELEASE" && \
  npm prune --production && \
- chown -R 911:911 /app/synclounge && \
  echo "**** cleanup ****" && \
  apk del --purge \
     build-dependencies && \

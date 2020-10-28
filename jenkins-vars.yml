@@ -3,15 +3,12 @@
 # jenkins variables
 project_name: docker-synclounge
 external_type: na
-custom_version_command: "printf '6aecc9bd'"
+custom_version_command: "curl -sX GET https://registry.npmjs.org/synclounge/ | jq -r '.\"dist-tags\".latest'"
 release_type: stable
 release_tag: latest
 ls_branch: master
 repo_vars:
-  - EXT_GIT_BRANCH = 'master'
-  - EXT_USER = 'synclounge'
-  - EXT_REPO = 'synclounge'
-  - BUILD_VERSION_ARG = 'SYNCLOUNGE_COMMIT'
+  - BUILD_VERSION_ARG = 'SYNCLOUNGE_RELEASE'
   - LS_USER = 'linuxserver'
   - LS_REPO = 'docker-synclounge'
   - CONTAINER_NAME = 'synclounge'
@@ -27,6 +24,6 @@ repo_vars:
   - CI_DELAY='120'
   - CI_DOCKERENV='EXTERNAL_URL=0.0.0.0'
   - CI_AUTH=''
-  - CI_WEBPATH='/slweb'
+  - CI_WEBPATH='/'
 sponsor_links:
   - { name: "SyncLounge", url: "http://docs.synclounge.tv/contributing/donating/" }

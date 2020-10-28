@@ -1,7 +1,0 @@
-{
-  "mechanism": "plex",
-  "type": ["server", "user"],
-  "authorized": [
-    "AUTH_LIST"
-  ]
-}
