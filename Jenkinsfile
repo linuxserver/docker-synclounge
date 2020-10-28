@@ -16,10 +16,7 @@ pipeline {
     GITHUB_TOKEN=credentials('498b4638-2d02-4ce5-832d-8a57d01d97ab')
     GITLAB_TOKEN=credentials('b6f0f1dd-6952-4cf6-95d1-9c06380283f0')
     GITLAB_NAMESPACE=credentials('gitlab-namespace-id')
-    EXT_GIT_BRANCH = 'master'
-    EXT_USER = 'synclounge'
-    EXT_REPO = 'synclounge'
-    BUILD_VERSION_ARG = 'SYNCLOUNGE_COMMIT'
+    BUILD_VERSION_ARG = 'SYNCLOUNGE_RELEASE'
     LS_USER = 'linuxserver'
     LS_REPO = 'docker-synclounge'
     CONTAINER_NAME = 'synclounge'
@@ -35,7 +32,7 @@ pipeline {
     CI_DELAY='120'
     CI_DOCKERENV='EXTERNAL_URL=0.0.0.0'
     CI_AUTH=''
-    CI_WEBPATH='/slweb'
+    CI_WEBPATH='/'
   }
   stages {
     // Setup all the basic environment variables needed for the build
@@ -106,7 +103,7 @@ pipeline {
       steps{
         script{
           env.EXT_RELEASE = sh(
-            script: ''' printf '6aecc9bd' ''',
+            script: ''' curl -sX GET https://registry.npmjs.org/synclounge/ | jq -r '."dist-tags".latest' ''',
             returnStdout: true).trim()
             env.RELEASE_LINK = 'custom_command'
         }
