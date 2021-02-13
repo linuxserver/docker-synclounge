@@ -17,14 +17,17 @@ RUN \
     nodejs \
     npm && \
  apk add --no-cache --virtual=build-dependencies \
+    g++ \
     git \
-    jq && \
+    jq \
+    make \
+    python3-dev && \
  echo "**** install SyncLounge ****" && \
  if [ -z ${SYNCLOUNGE_RELEASE+x} ]; then \
     SYNCLOUNGE_RELEASE=$(curl -sX GET "https://registry.npmjs.org/synclounge/" \
     | jq -r '."dist-tags".latest'); \
  fi && \
- npm install -g --production synclounge@"$SYNCLOUNGE_RELEASE" && \
+ npm install -g --production synclounge@"$SYNCLOUNGE_RELEASE" --unsafe && \
  npm prune --production && \
  echo "**** cleanup ****" && \
  apk del --purge \
