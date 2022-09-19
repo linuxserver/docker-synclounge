@@ -1,4 +1,4 @@
-FROM ghcr.io/linuxserver/baseimage-alpine:3.13
+FROM ghcr.io/linuxserver/baseimage-alpine:3.15
 
 # set version label
 ARG BUILD_DATE
@@ -9,6 +9,7 @@ LABEL maintainer="alex-phillips"
 
 # environment settings
 ENV HOME="/app"
+WORKDIR /app
 
 RUN \
  echo "**** install build packages ****" && \
