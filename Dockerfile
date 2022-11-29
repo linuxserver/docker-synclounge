@@ -12,24 +12,24 @@ ENV HOME="/app"
 WORKDIR /app
 
 RUN \
- echo "**** install build packages ****" && \
- apk add --no-cache \
+  echo "**** install build packages ****" && \
+  apk add --no-cache \
     curl \
     nodejs && \
- apk add --no-cache --virtual=build-dependencies \
+  apk add --no-cache --virtual=build-dependencies \
     git \
     npm && \
- echo "**** install SyncLounge ****" && \
- if [ -z ${SYNCLOUNGE_RELEASE+x} ]; then \
+  echo "**** install SyncLounge ****" && \
+  if [ -z ${SYNCLOUNGE_RELEASE+x} ]; then \
     SYNCLOUNGE_RELEASE=$(curl -sX GET "https://registry.npmjs.org/synclounge/" \
-    | jq -r '."dist-tags".latest'); \
- fi && \
- npm install -g --omit=dev synclounge@"$SYNCLOUNGE_RELEASE" && \
- npm prune --omit=dev && \
- echo "**** cleanup ****" && \
- apk del --purge \
+      | jq -r '."dist-tags".latest'); \
+  fi && \
+  npm install -g --omit=dev synclounge@"$SYNCLOUNGE_RELEASE" && \
+  npm prune --omit=dev && \
+  echo "**** cleanup ****" && \
+  apk del --purge \
     build-dependencies && \
- rm -rf \
+  rm -rf \
     /root/.cache \
     /tmp/*
 
