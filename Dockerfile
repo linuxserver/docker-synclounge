@@ -1,4 +1,4 @@
-FROM ghcr.io/linuxserver/baseimage-alpine:3.15
+FROM ghcr.io/linuxserver/baseimage-alpine:3.16
 
 # set version label
 ARG BUILD_DATE
@@ -15,18 +15,17 @@ RUN \
  echo "**** install build packages ****" && \
  apk add --no-cache \
     curl \
-    nodejs \
-    npm && \
+    nodejs && \
  apk add --no-cache --virtual=build-dependencies \
     git \
-    jq && \
+    npm && \
  echo "**** install SyncLounge ****" && \
  if [ -z ${SYNCLOUNGE_RELEASE+x} ]; then \
     SYNCLOUNGE_RELEASE=$(curl -sX GET "https://registry.npmjs.org/synclounge/" \
     | jq -r '."dist-tags".latest'); \
  fi && \
- npm install -g --production synclounge@"$SYNCLOUNGE_RELEASE" && \
- npm prune --production && \
+ npm install -g --omit=dev synclounge@"$SYNCLOUNGE_RELEASE" && \
+ npm prune --omit=dev && \
  echo "**** cleanup ****" && \
  apk del --purge \
     build-dependencies && \
