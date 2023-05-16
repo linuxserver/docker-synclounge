@@ -2,7 +2,7 @@ NAME                          VERSION                TYPE
 @socket.io/component-emitter  3.1.0                  npm     
 @types/cookie                 0.4.1                  npm     
 @types/cors                   2.8.13                 npm     
-@types/node                   20.1.1                 npm     
+@types/node                   20.1.5                 npm     
 accepts                       1.3.8                  npm     
 alpine-baselayout             3.4.0-r0               apk     
 alpine-baselayout-data        3.4.0-r0               apk     
@@ -55,8 +55,9 @@ forwarded                     0.2.0                  npm
 fresh                         0.5.2                  npm     
 function-bind                 1.1.1                  npm     
 get-caller-file               2.0.5                  npm     
-get-intrinsic                 1.2.0                  npm     
+get-intrinsic                 1.2.1                  npm     
 has                           1.0.3                  npm     
+has-proto                     1.0.1                  npm     
 has-symbols                   1.0.3                  npm     
 http-errors                   2.0.0                  npm     
 iconv-lite                    0.4.24                 npm     
@@ -97,9 +98,9 @@ ncurses-terminfo-base         6.3_p20221119-r0       apk
 negotiator                    0.6.3                  npm     
 netcat-openbsd                1.130-r4               apk     
 nghttp2-libs                  1.51.0-r0              apk     
-node                          18.14.2                binary  
+node                          18.16.0                binary  
 node-gyp-build                4.6.0                  npm     
-nodejs                        18.14.2-r0             apk     
+nodejs                        18.16.0-r0             apk     
 object-assign                 4.1.1                  npm     
 object-inspect                1.12.3                 npm     
 on-finished                   2.4.1                  npm     
