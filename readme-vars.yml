@@ -6,13 +6,10 @@ project_url: "https://github.com/samcm/synclounge"
 project_logo: "https://raw.githubusercontent.com/linuxserver/docker-templates/master/linuxserver.io/img/synclounge-banner.png"
 project_blurb: "[{{ project_name|capitalize }}]({{ project_url }}) is a third party tool that allows you to watch Plex in sync with your friends/family, wherever you are."
 project_lsio_github_repo_url: "https://github.com/linuxserver/docker-{{ project_name }}"
-
 # supported architectures
 available_architectures:
-  - { arch: "{{ arch_x86_64 }}", tag: "amd64-latest"}
-  - { arch: "{{ arch_arm64 }}", tag: "arm64v8-latest"}
-  - { arch: "{{ arch_armhf }}", tag: "arm32v7-latest"}
-
+  - {arch: "{{ arch_x86_64 }}", tag: "amd64-latest"}
+  - {arch: "{{ arch_arm64 }}", tag: "arm64v8-latest"}
 # container parameters
 common_param_env_vars_enabled: false
 param_container_name: "{{ project_name }}"
@@ -20,38 +17,34 @@ param_usage_include_vols: false
 param_volumes:
 param_usage_include_ports: true
 param_ports:
-  - { external_port: "8088", internal_port: "8088", port_desc: "Web app and server port" }
+  - {external_port: "8088", internal_port: "8088", port_desc: "Web app and server port"}
 param_usage_include_env: true
 param_env_vars:
-  - { env_var: "TZ", env_value: "Europe/London", desc: "Specify a timezone to use EG Europe/London"}
-
+  - {env_var: "TZ", env_value: "Europe/London", desc: "Specify a timezone to use EG Europe/London"}
 # optional container parameters
 opt_param_usage_include_env: true
 opt_param_env_vars:
-  - { env_var: "AUTH_LIST", env_value: "plexuser1,plexuser2,email1,machineid1", desc: "If set, only the users defined here and the users of the plex servers defined here will be able to access the server. Use e-mails, plex usernames and/or plex server machine ids, comma separated, no spaces." }
-  - { env_var: "AUTOJOIN_ENABLED", env_value: "false", desc: "DEPRECATED - (Still works but will be removed in the future in favor of the built-in var `autojoin__room`) - Set to `true` to let users autojoin the server and a room (specified by the `AUTOJOIN_ROOM` var)." }
-  - { env_var: "AUTOJOIN_ROOM", env_value: "roomname", desc: "DEPRECATED - (Still works but will be removed in the future in favor of the built-in var `autojoin__room`) - Set the room name for auto joining (requires `AUTOJOIN_ENABLED` set to `true`)." }
-
-
+  - {env_var: "AUTH_LIST", env_value: "plexuser1,plexuser2,email1,machineid1", desc: "If set, only the users defined here and the users of the plex servers defined here will be able to access the server. Use e-mails, plex usernames and/or plex server machine ids, comma separated, no spaces."}
+  - {env_var: "AUTOJOIN_ENABLED", env_value: "false", desc: "DEPRECATED - (Still works but will be removed in the future in favor of the built-in var `autojoin__room`) - Set to `true` to let users autojoin the server and a room (specified by the `AUTOJOIN_ROOM` var)."}
+  - {env_var: "AUTOJOIN_ROOM", env_value: "roomname", desc: "DEPRECATED - (Still works but will be removed in the future in favor of the built-in var `autojoin__room`) - Set the room name for auto joining (requires `AUTOJOIN_ENABLED` set to `true`)."}
 # optional parameters
 optional_block_1: false
 optional_block_1_items: ""
-
 # application setup block
 app_setup_block_enabled: true
 app_setup_block: |
   The web app and the server are both accessible at `http://SERVERIP:8088`.
-  
-  Note: It is recommended to use `http` as the external proto with a reverse proxy due to `https` not working with external plex clients.
 
+  Note: It is recommended to use `http` as the external proto with a reverse proxy due to `https` not working with external plex clients.
 # changelog
 changelogs:
-  - { date: "29.11.22:", desc: "Rebase to alpine 3.17, upgrade to s6v3." }
-  - { date: "19.09.22:", desc: "Rebase to alpine 3.15." }
-  - { date: "12.02.21:", desc: "Fix optional dependency builds in aarch64 image." }
-  - { date: "12.02.21:", desc: "Rebasing to alpine 3.13." }
-  - { date: "28.10.20:", desc: "Update to v4. Env vars `EXTERNAL_URL`, `EXTERNAL_SERVER_PORT` and `AUTOJOIN_PASSWORD` are deprecated and no longer have any effect. Env vars `AUTOJOIN_ENABLED` and `AUTOJOIN_ROOM` are still working but will be removed in the future in favor of synclounge's built-in var `autojoin__room`. If you are reverse proxying, do not forget to update your proxy settings ([here](https://github.com/linuxserver/reverse-proxy-confs/blob/master/synclounge.subdomain.conf.sample) and [here](https://github.com/linuxserver/reverse-proxy-confs/blob/master/synclounge.subfolder.conf.sample)) as the server port and addresses are changed." }
-  - { date: "11.10.20:", desc: "Pin builds to upstream commit `6aecc9bd` while evaluating the breaking changes upstream." }
-  - { date: "27.09.20:", desc: "Updating the external repo endpoint." }
-  - { date: "01.06.20:", desc: "Rebasing to alpine 3.12." }
-  - { date: "11.05.20:", desc: "Initial Release." }
+  - {date: "04.07.23:", desc: "Deprecate armhf. As announced [here](https://www.linuxserver.io/blog/a-farewell-to-arm-hf)"}
+  - {date: "29.11.22:", desc: "Rebase to alpine 3.17, upgrade to s6v3."}
+  - {date: "19.09.22:", desc: "Rebase to alpine 3.15."}
+  - {date: "12.02.21:", desc: "Fix optional dependency builds in aarch64 image."}
+  - {date: "12.02.21:", desc: "Rebasing to alpine 3.13."}
+  - {date: "28.10.20:", desc: "Update to v4. Env vars `EXTERNAL_URL`, `EXTERNAL_SERVER_PORT` and `AUTOJOIN_PASSWORD` are deprecated and no longer have any effect. Env vars `AUTOJOIN_ENABLED` and `AUTOJOIN_ROOM` are still working but will be removed in the future in favor of synclounge's built-in var `autojoin__room`. If you are reverse proxying, do not forget to update your proxy settings ([here](https://github.com/linuxserver/reverse-proxy-confs/blob/master/synclounge.subdomain.conf.sample) and [here](https://github.com/linuxserver/reverse-proxy-confs/blob/master/synclounge.subfolder.conf.sample)) as the server port and addresses are changed."}
+  - {date: "11.10.20:", desc: "Pin builds to upstream commit `6aecc9bd` while evaluating the breaking changes upstream."}
+  - {date: "27.09.20:", desc: "Updating the external repo endpoint."}
+  - {date: "01.06.20:", desc: "Rebasing to alpine 3.12."}
+  - {date: "11.05.20:", desc: "Initial Release."}
