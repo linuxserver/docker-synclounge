@@ -38,6 +38,7 @@ app_setup_block: |
   Note: It is recommended to use `http` as the external proto with a reverse proxy due to `https` not working with external plex clients.
 # changelog
 changelogs:
+  - {date: "26.08.23:", desc: "Rebase to Alpine 3.18."}
   - {date: "04.07.23:", desc: "Deprecate armhf. As announced [here](https://www.linuxserver.io/blog/a-farewell-to-arm-hf)"}
   - {date: "29.11.22:", desc: "Rebase to alpine 3.17, upgrade to s6v3."}
   - {date: "19.09.22:", desc: "Rebase to alpine 3.15."}
