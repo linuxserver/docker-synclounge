@@ -2,7 +2,7 @@ NAME                          VERSION                 TYPE
 @socket.io/component-emitter  3.1.0                   npm   
 @types/cookie                 0.4.1                   npm   
 @types/cors                   2.8.14                  npm   
-@types/node                   20.5.9                  npm   
+@types/node                   20.6.0                  npm   
 accepts                       1.3.8                   npm   
 alpine-baselayout             3.4.3-r1                apk   
 alpine-baselayout-data        3.4.3-r1                apk   
@@ -141,7 +141,7 @@ utf-8-validate                5.0.10                  npm
 utf-8-validate                6.0.3                   npm   
 utils-merge                   1.0.1                   npm   
 utmps-libs                    0.1.2.1-r1              apk   
-uuid                          9.0.0                   npm   
+uuid                          9.0.1                   npm   
 vary                          1.1.2                   npm   
 wrap-ansi                     7.0.0                   npm   
 ws                            8.11.0                  npm   
