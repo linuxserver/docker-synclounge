@@ -2,7 +2,7 @@ NAME                          VERSION                 TYPE
 @socket.io/component-emitter  3.1.0                   npm   
 @types/cookie                 0.4.1                   npm   
 @types/cors                   2.8.14                  npm   
-@types/node                   20.6.5                  npm   
+@types/node                   20.7.0                  npm   
 accepts                       1.3.8                   npm   
 alpine-baselayout             3.4.3-r1                apk   
 alpine-baselayout-data        3.4.3-r1                apk   
@@ -131,8 +131,8 @@ ssl_client                    1.36.1-r2               apk
 statuses                      2.0.1                   npm   
 string-width                  4.2.3                   npm   
 strip-ansi                    6.0.1                   npm   
-synclounge                    5.2.6                   npm   
-syncloungeserver              8.0.64                  npm   
+synclounge                    5.2.8                   npm   
+syncloungeserver              8.0.66                  npm   
 toidentifier                  1.0.1                   npm   
 type-is                       1.6.18                  npm   
 tzdata                        2023c-r1                apk   
