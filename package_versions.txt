@@ -55,7 +55,7 @@ fresh                         0.5.2                   npm
 function-bind                 1.1.1                   npm   
 get-caller-file               2.0.5                   npm   
 get-intrinsic                 1.2.1                   npm   
-has                           1.0.3                   npm   
+has                           1.0.4                   npm   
 has-proto                     1.0.1                   npm   
 has-symbols                   1.0.3                   npm   
 http-errors                   2.0.0                   npm   
@@ -131,7 +131,7 @@ ssl_client                    1.36.1-r2               apk
 statuses                      2.0.1                   npm   
 string-width                  4.2.3                   npm   
 strip-ansi                    6.0.1                   npm   
-synclounge                    5.2.15                  npm   
+synclounge                    5.2.16                  npm   
 syncloungeserver              8.0.69                  npm   
 toidentifier                  1.0.1                   npm   
 type-is                       1.6.18                  npm   
