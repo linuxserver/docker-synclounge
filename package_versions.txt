@@ -135,7 +135,7 @@ ssl_client                    1.36.1-r4               apk
 statuses                      2.0.1                   npm   
 string-width                  4.2.3                   npm   
 strip-ansi                    6.0.1                   npm   
-synclounge                    5.2.21                  npm   
+synclounge                    5.2.22                  npm   
 syncloungeserver              8.0.75                  npm   
 toidentifier                  1.0.1                   npm   
 type-is                       1.6.18                  npm   
