@@ -1,7 +1,7 @@
 NAME                          VERSION                 TYPE 
 @socket.io/component-emitter  3.1.0                   npm   
 @types/cookie                 0.4.1                   npm   
-@types/cors                   2.8.15                  npm   
+@types/cors                   2.8.16                  npm   
 @types/node                   20.8.10                 npm   
 accepts                       1.3.8                   npm   
 alpine-baselayout             3.4.3-r1                apk   
@@ -12,7 +12,7 @@ ansi-regex                    5.0.1                   npm
 ansi-styles                   4.3.0                   npm   
 apk-tools                     2.14.0-r2               apk   
 array-flatten                 1.1.1                   npm   
-async                         3.2.4                   npm   
+async                         3.2.5                   npm   
 base64id                      2.0.0                   npm   
 bash                          5.2.15-r5               apk   
 body-parser                   1.20.1                  npm   
