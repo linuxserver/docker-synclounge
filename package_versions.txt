@@ -1,8 +1,8 @@
 NAME                          VERSION                 TYPE 
 @socket.io/component-emitter  3.1.0                   npm   
 @types/cookie                 0.4.1                   npm   
-@types/cors                   2.8.16                  npm   
-@types/node                   20.9.0                  npm   
+@types/cors                   2.8.17                  npm   
+@types/node                   20.9.3                  npm   
 accepts                       1.3.8                   npm   
 alpine-baselayout             3.4.3-r1                apk   
 alpine-baselayout-data        3.4.3-r1                apk   
@@ -102,7 +102,7 @@ ncurses-terminfo-base         6.4_p20230506-r0        apk
 negotiator                    0.6.3                   npm   
 netcat-openbsd                1.219-r1                apk   
 nghttp2-libs                  1.57.0-r0               apk   
-node-gyp-build                4.6.1                   npm   
+node-gyp-build                4.7.0                   npm   
 nodejs                        18.18.2-r0              apk   
 object-assign                 4.1.1                   npm   
 object-inspect                1.13.1                  npm   
@@ -136,7 +136,7 @@ statuses                      2.0.1                   npm
 string-width                  4.2.3                   npm   
 strip-ansi                    6.0.1                   npm   
 synclounge                    5.2.23                  npm   
-syncloungeserver              8.0.78                  npm   
+syncloungeserver              8.0.79                  npm   
 toidentifier                  1.0.1                   npm   
 type-is                       1.6.18                  npm   
 tzdata                        2023c-r1                apk   
