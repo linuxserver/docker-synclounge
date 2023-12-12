@@ -69,7 +69,7 @@ inherits                      2.0.4                   npm
 ini                           2.0.0                   npm   
 ipaddr.js                     1.9.1                   npm   
 is-fullwidth-code-point       3.0.0                   npm   
-jq                            1.6-r3                  apk   
+jq                            1.6-r4                  apk   
 libacl                        2.3.1-r3                apk   
 libattr                       2.5.1-r4                apk   
 libbsd                        0.11.7-r1               apk   
