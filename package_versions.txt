@@ -2,7 +2,7 @@ NAME                          VERSION                 TYPE
 @socket.io/component-emitter  3.1.0                   npm   
 @types/cookie                 0.4.1                   npm   
 @types/cors                   2.8.17                  npm   
-@types/node                   20.10.6                 npm   
+@types/node                   20.10.7                 npm   
 accepts                       1.3.8                   npm   
 alpine-baselayout             3.4.3-r1                apk   
 alpine-baselayout-data        3.4.3-r1                apk   
@@ -102,7 +102,7 @@ ncurses-terminfo-base         6.4_p20230506-r0        apk
 negotiator                    0.6.3                   npm   
 netcat-openbsd                1.219-r1                apk   
 nghttp2-libs                  1.57.0-r0               apk   
-node-gyp-build                4.7.1                   npm   
+node-gyp-build                4.8.0                   npm   
 nodejs                        18.18.2-r0              apk   
 object-assign                 4.1.1                   npm   
 object-inspect                1.13.1                  npm   
@@ -128,7 +128,7 @@ setprototypeof                1.2.0                   npm
 shadow                        4.13-r4                 apk   
 side-channel                  1.0.4                   npm   
 skalibs                       2.13.1.1-r1             apk   
-socket.io                     4.7.2                   npm   
+socket.io                     4.7.3                   npm   
 socket.io-adapter             2.5.2                   npm   
 socket.io-parser              4.2.4                   npm   
 ssl_client                    1.36.1-r5               apk   
