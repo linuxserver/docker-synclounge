@@ -2,7 +2,7 @@ NAME                          VERSION                 TYPE
 @socket.io/component-emitter  3.1.0                   npm   
 @types/cookie                 0.4.1                   npm   
 @types/cors                   2.8.17                  npm   
-@types/node                   20.11.16                npm   
+@types/node                   20.11.17                npm   
 accepts                       1.3.8                   npm   
 alpine-baselayout             3.4.3-r1                apk   
 alpine-baselayout-data        3.4.3-r1                apk   
@@ -24,7 +24,7 @@ bytes                         3.1.2                   npm
 c-ares                        1.19.1-r0               apk   
 ca-certificates               20230506-r0             apk   
 ca-certificates-bundle        20230506-r0             apk   
-call-bind                     1.0.6                   npm   
+call-bind                     1.0.7                   npm   
 cliui                         7.0.4                   npm   
 color-convert                 2.0.1                   npm   
 color-name                    1.1.4                   npm   
@@ -38,7 +38,7 @@ cors                          2.8.5                   npm
 curl                          8.5.0-r0                apk   
 debug                         2.6.9                   npm   
 debug                         4.3.4                   npm   
-define-data-property          1.1.2                   npm   
+define-data-property          1.1.3                   npm   
 depd                          2.0.0                   npm   
 destroy                       1.2.0                   npm   
 ee-first                      1.1.1                   npm   
@@ -46,6 +46,7 @@ emoji-regex                   8.0.0                   npm
 encodeurl                     1.0.2                   npm   
 engine.io                     6.5.4                   npm   
 engine.io-parser              5.2.2                   npm   
+es-define-property            1.0.0                   npm   
 es-errors                     1.3.0                   npm   
 escalade                      3.1.2                   npm   
 escape-html                   1.0.3                   npm   
@@ -58,10 +59,10 @@ function-bind                 1.1.2                   npm
 get-caller-file               2.0.5                   npm   
 get-intrinsic                 1.2.4                   npm   
 gopd                          1.0.1                   npm   
-has-property-descriptors      1.0.1                   npm   
+has-property-descriptors      1.0.2                   npm   
 has-proto                     1.0.1                   npm   
 has-symbols                   1.0.3                   npm   
-hasown                        2.0.0                   npm   
+hasown                        2.0.1                   npm   
 http-errors                   2.0.0                   npm   
 iconv-lite                    0.4.24                  npm   
 icu-data-en                   73.2-r2                 apk   
