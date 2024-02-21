@@ -131,7 +131,7 @@ shadow                        4.13-r4                 apk
 side-channel                  1.0.5                   npm   
 skalibs                       2.13.1.1-r1             apk   
 socket.io                     4.7.4                   npm   
-socket.io-adapter             2.5.2                   npm   
+socket.io-adapter             2.5.3                   npm   
 socket.io-parser              4.2.4                   npm   
 ssl_client                    1.36.1-r5               apk   
 statuses                      2.0.1                   npm   
