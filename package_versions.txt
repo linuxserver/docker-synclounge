@@ -2,7 +2,7 @@ NAME                          VERSION                 TYPE
 @socket.io/component-emitter  3.1.0                   npm   
 @types/cookie                 0.4.1                   npm   
 @types/cors                   2.8.17                  npm   
-@types/node                   20.11.19                npm   
+@types/node                   20.11.20                npm   
 accepts                       1.3.8                   npm   
 alpine-baselayout             3.4.3-r1                apk   
 alpine-baselayout-data        3.4.3-r1                apk   
@@ -131,7 +131,7 @@ shadow                        4.13-r4                 apk
 side-channel                  1.0.5                   npm   
 skalibs                       2.13.1.1-r1             apk   
 socket.io                     4.7.4                   npm   
-socket.io-adapter             2.5.3                   npm   
+socket.io-adapter             2.5.4                   npm   
 socket.io-parser              4.2.4                   npm   
 ssl_client                    1.36.1-r5               apk   
 statuses                      2.0.1                   npm   
