@@ -1,8 +1,5 @@
 #!/usr/bin/with-contenv bash
 
-if [ "${AUTOJOIN_ENABLED}" == "true" ]; then
-    export autojoin__room="${AUTOJOIN_ROOM}"
-fi
 if [ -n "${AUTH_LIST}" ]; then
     export authentication__mechanism='["plex"]'
     export authentication__type='["server", "user"]'

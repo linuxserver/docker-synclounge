@@ -18,15 +18,10 @@ param_volumes:
 param_usage_include_ports: true
 param_ports:
   - {external_port: "8088", internal_port: "8088", port_desc: "Web app and server port"}
-param_usage_include_env: true
-param_env_vars:
-  - {env_var: "TZ", env_value: "Europe/London", desc: "Specify a timezone to use EG Europe/London"}
 # optional container parameters
 opt_param_usage_include_env: true
 opt_param_env_vars:
   - {env_var: "AUTH_LIST", env_value: "plexuser1,plexuser2,email1,machineid1", desc: "If set, only the users defined here and the users of the plex servers defined here will be able to access the server. Use e-mails, plex usernames and/or plex server machine ids, comma separated, no spaces."}
-  - {env_var: "AUTOJOIN_ENABLED", env_value: "false", desc: "DEPRECATED - (Still works but will be removed in the future in favor of the built-in var `autojoin__room`) - Set to `true` to let users autojoin the server and a room (specified by the `AUTOJOIN_ROOM` var)."}
-  - {env_var: "AUTOJOIN_ROOM", env_value: "roomname", desc: "DEPRECATED - (Still works but will be removed in the future in favor of the built-in var `autojoin__room`) - Set the room name for auto joining (requires `AUTOJOIN_ENABLED` set to `true`)."}
 # optional parameters
 optional_block_1: false
 optional_block_1_items: ""
@@ -38,6 +33,7 @@ app_setup_block: |
   Note: It is recommended to use `http` as the external proto with a reverse proxy due to `https` not working with external plex clients.
 # changelog
 changelogs:
+  - {date: "26.08.23:", desc: "Rebase to Alpine 3.19. Remove deprecated `AUTOJOIN_ENABLED` & `AUTOJOIN_ROOM` options."}
   - {date: "26.08.23:", desc: "Rebase to Alpine 3.18."}
   - {date: "04.07.23:", desc: "Deprecate armhf. As announced [here](https://www.linuxserver.io/blog/a-farewell-to-arm-hf)"}
   - {date: "29.11.22:", desc: "Rebase to alpine 3.17, upgrade to s6v3."}
