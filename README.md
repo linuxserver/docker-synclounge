@@ -77,8 +77,6 @@ services:
     container_name: synclounge
     environment:
       - AUTH_LIST=plexuser1,plexuser2,email1,machineid1 #optional
-      - AUTOJOIN_ENABLED=false #optional
-      - AUTOJOIN_ROOM=roomname #optional
     ports:
       - 8088:8088
     restart: unless-stopped
@@ -90,8 +88,6 @@ services:
 docker run -d \
   --name=synclounge \
   -e AUTH_LIST=plexuser1,plexuser2,email1,machineid1 `#optional` \
-  -e AUTOJOIN_ENABLED=false `#optional` \
-  -e AUTOJOIN_ROOM=roomname `#optional` \
   -p 8088:8088 \
   --restart unless-stopped \
   lscr.io/linuxserver/synclounge:latest
@@ -105,8 +101,6 @@ Containers are configured using parameters passed at runtime (such as those abov
 | :----: | --- |
 | `-p 8088` | Web app and server port |
 | `-e AUTH_LIST=plexuser1,plexuser2,email1,machineid1` | If set, only the users defined here and the users of the plex servers defined here will be able to access the server. Use e-mails, plex usernames and/or plex server machine ids, comma separated, no spaces. |
-| `-e AUTOJOIN_ENABLED=false` | DEPRECATED - (Still works but will be removed in the future in favor of the built-in var `autojoin__room`) - Set to `true` to let users autojoin the server and a room (specified by the `AUTOJOIN_ROOM` var). |
-| `-e AUTOJOIN_ROOM=roomname` | DEPRECATED - (Still works but will be removed in the future in favor of the built-in var `autojoin__room`) - Set the room name for auto joining (requires `AUTOJOIN_ENABLED` set to `true`). |
 
 ## Environment variables from files (Docker secrets)
 
@@ -251,6 +245,7 @@ Once registered you can define the dockerfile to use with `-f Dockerfile.aarch64
 
 ## Versions
 
+* **26.08.23:** - Rebase to Alpine 3.19. Remove deprecated `AUTOJOIN_ENABLED` & `AUTOJOIN_ROOM` options.
 * **26.08.23:** - Rebase to Alpine 3.18.
 * **04.07.23:** - Deprecate armhf. As announced [here](https://www.linuxserver.io/blog/a-farewell-to-arm-hf)
 * **29.11.22:** - Rebase to alpine 3.17, upgrade to s6v3.
