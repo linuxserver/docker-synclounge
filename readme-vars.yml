@@ -33,6 +33,7 @@ app_setup_block: |
   Note: It is recommended to use `http` as the external proto with a reverse proxy due to `https` not working with external plex clients.
 # changelog
 changelogs:
+  - {date: "04.06.24:", desc: "Rebase to Alpine 3.20."}
   - {date: "26.08.23:", desc: "Rebase to Alpine 3.19. Remove deprecated `AUTOJOIN_ENABLED` & `AUTOJOIN_ROOM` options."}
   - {date: "26.08.23:", desc: "Rebase to Alpine 3.18."}
   - {date: "04.07.23:", desc: "Deprecate armhf. As announced [here](https://www.linuxserver.io/blog/a-farewell-to-arm-hf)"}

@@ -245,6 +245,7 @@ Once registered you can define the dockerfile to use with `-f Dockerfile.aarch64
 
 ## Versions
 
+* **04.06.24:** - Rebase to Alpine 3.20.
 * **26.08.23:** - Rebase to Alpine 3.19. Remove deprecated `AUTOJOIN_ENABLED` & `AUTOJOIN_ROOM` options.
 * **26.08.23:** - Rebase to Alpine 3.18.
 * **04.07.23:** - Deprecate armhf. As announced [here](https://www.linuxserver.io/blog/a-farewell-to-arm-hf)
