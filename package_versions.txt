@@ -2,7 +2,7 @@ NAME                          VERSION                TYPE
 @socket.io/component-emitter  3.1.2                  npm                    
 @types/cookie                 0.4.1                  npm                    
 @types/cors                   2.8.17                 npm                    
-@types/node                   20.14.10               npm                    
+@types/node                   20.14.11               npm                    
 accepts                       1.3.8                  npm                    
 ada-libs                      2.7.8-r0               apk                    
 alpine-baselayout             3.6.5-r0               apk                    
@@ -144,7 +144,7 @@ ssl_client                    1.36.1-r29             apk
 statuses                      2.0.1                  npm                    
 string-width                  4.2.3                  npm                    
 strip-ansi                    6.0.1                  npm                    
-synclounge                    5.2.30                 npm                    
+synclounge                    5.2.31                 npm                    
 syncloungeserver              8.0.88                 npm                    
 toidentifier                  1.0.1                  npm                    
 type-is                       1.6.18                 npm                    
