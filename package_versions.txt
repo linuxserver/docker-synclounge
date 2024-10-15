@@ -33,8 +33,8 @@ color-convert                 2.0.1                  npm
 color-name                    1.1.4                  npm                    
 content-disposition           0.5.4                  npm                    
 content-type                  1.0.5                  npm                    
-cookie                        0.4.2                  npm                    
-cookie                        0.6.0                  npm                    
+cookie                        0.7.1                  npm                    
+cookie                        0.7.2                  npm                    
 cookie-signature              1.0.6                  npm                    
 coreutils                     9.5-r1                 apk                    
 coreutils-env                 9.5-r1                 apk                    
@@ -51,7 +51,7 @@ ee-first                      1.1.1                  npm
 emoji-regex                   8.0.0                  npm                    
 encodeurl                     1.0.2                  npm                    
 encodeurl                     2.0.0                  npm                    
-engine.io                     6.6.1                  npm                    
+engine.io                     6.6.2                  npm                    
 engine.io-parser              5.2.3                  npm                    
 engine.io-parser              UNKNOWN                npm   (+1 duplicate)   
 es-define-property            1.0.0                  npm                    
@@ -59,7 +59,7 @@ es-errors                     1.3.0                  npm
 escalade                      3.2.0                  npm                    
 escape-html                   1.0.3                  npm                    
 etag                          1.8.1                  npm                    
-express                       4.21.0                 npm                    
+express                       4.21.1                 npm                    
 finalhandler                  1.3.1                  npm                    
 findutils                     4.9.0-r5               apk                    
 forwarded                     0.2.0                  npm                    
