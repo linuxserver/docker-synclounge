@@ -298,8 +298,9 @@ pipeline {
                 sed -i '\\|^#.*changelog.*$|d' readme-vars.yml 
                 sed -i 's|^changelogs:|# init diagram\\ninit_diagram:\\n\\n# changelog\\nchangelogs:|' readme-vars.yml
               fi
-              docker run -d --rm -v ${TEMPDIR}/d2:/output -e PUID=$(id -u) -e PGID=$(id -g) -e RAW="true" ghcr.io/linuxserver/lspipepr-d2-builder:v0.6.8-pkg-24b0f078-dev-17b7a61a429a59d0fcb70f43c1b5b005306cff16-pr-2 ${CONTAINER_NAME}:latest
               mkdir -p ${TEMPDIR}/d2
+              docker run --rm -v ${TEMPDIR}/d2:/output -e PUID=$(id -u) -e PGID=$(id -g) ghcr.io/linuxserver/lspipepr-d2-builder:v0.6.8-pkg-24b0f078-dev-17b7a61a429a59d0fcb70f43c1b5b005306cff16-pr-2 ${CONTAINER_NAME}:latest
+              ls -al ${TEMPDIR}/d2
               yq -ei ".init_diagram |= load_str(\\"${TEMPDIR}/d2/${CONTAINER_NAME}-latest.d2\\")" readme-vars.yml || :
               if [[ $(md5sum readme-vars.yml | cut -c1-8) != $(md5sum ${TEMPDIR}/docker-${CONTAINER_NAME}/readme-vars.yml | cut -c1-8) ]]; then
                 echo "'init_diagram' has been updated. Updating repo and exiting build, new one will trigger based on commit."
