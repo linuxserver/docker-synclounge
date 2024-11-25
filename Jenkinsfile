@@ -319,6 +319,7 @@ pipeline {
                 exit 0
               else
                 echo "Init diagram is unchanged"
+                echo "false" > /tmp/${COMMIT_SHA}-${BUILD_NUMBER}
               fi'''
         script{
           env.FILES_UPDATED = sh(
@@ -515,7 +516,7 @@ pipeline {
     // Exit the build if the Templated files were just updated
     stage('Template-exit') {
       when {
-        branch "readme-master"
+        branch "readme-test"
         environment name: 'CHANGE_ID', value: ''
         environment name: 'FILES_UPDATED', value: 'true'
         expression {
