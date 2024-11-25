@@ -271,6 +271,61 @@ pipeline {
       }
     }
     // Use helper containers to render templated files
+    stage('Update-readme-vars') {
+      when {
+        branch "readme-test"
+        environment name: 'CHANGE_ID', value: ''
+        expression {
+          env.CONTAINER_NAME != null
+        }
+      }
+      steps {
+        sh '''#! /bin/bash
+              set -e
+              TEMPDIR=$(mktemp -d)
+              docker pull ghcr.io/linuxserver/jenkins-builder:latest
+              # Cloned repo paths for templating:
+              # ${TEMPDIR}/docker-${CONTAINER_NAME}: Cloned branch master of ${LS_USER}/${LS_REPO} for running the jenkins builder on
+              # ${TEMPDIR}/repo/${LS_REPO}: Cloned branch master of ${LS_USER}/${LS_REPO} for commiting various templated file changes and pushing back to Github
+              # ${TEMPDIR}/docs/docker-documentation: Cloned docs repo for pushing docs updates to Github
+              # ${TEMPDIR}/unraid/docker-templates: Cloned docker-templates repo to check for logos
+              # ${TEMPDIR}/unraid/templates: Cloned templates repo for commiting unraid template changes and pushing back to Github
+              git clone --branch readme-test --depth 1 https://github.com/${LS_USER}/${LS_REPO}.git ${TEMPDIR}/docker-${CONTAINER_NAME}
+              docker run --rm -v ${TEMPDIR}/docker-${CONTAINER_NAME}:/tmp -e LOCAL=true -e PUID=$(id -u) -e PGID=$(id -g) ghcr.io/linuxserver/jenkins-builder:latest 
+              echo "Starting Stage 2.5 - Update init diagram"
+              if ! grep -q 'init_diagram:' readme-vars.yml; then
+                echo "Adding the key 'init_diagram' to readme-vars.yml"
+                sed -i '\\|^#.*changelog.*$|d' readme-vars.yml 
+                sed -i 's|^changelogs:|# init diagram\\ninit_diagram:\\n\\n# changelog\\nchangelogs:|' readme-vars.yml
+              fi
+              docker run -d --rm -v ${TEMPDIR}/d2:/output -e PUID=$(id -u) -e PGID=$(id -g) ghcr.io/linuxserver/d2-builder:latest ${CONTAINER_NAME}:latest
+              yq -ei ".init_diagram |= load_str(\\"${TEMPDIR}/d2/${CONTAINER_NAME}-master.d2\\")" readme-vars.yml || :
+              if [[ $(md5sum readme-vars.yml | cut -c1-8) != $(md5sum ${TEMPDIR}/docker-${CONTAINER_NAME}/readme-vars.yml | cut -c1-8) ]]; then
+                echo "'init_diagram' has been updated. Updating repo and exiting build, new one will trigger based on commit."
+                mkdir -p ${TEMPDIR}/repo
+                git clone https://github.com/${LS_USER}/${LS_REPO}.git ${TEMPDIR}/repo/${LS_REPO}
+                cd ${TEMPDIR}/repo/${LS_REPO}
+                git checkout -f readme-test
+                cp ${WORKSPACE}/readme-vars.yml ${TEMPDIR}/repo/${LS_REPO}/readme-vars.yml
+                git add readme-vars.yml
+                git commit -m 'Bot Updating Templated Files'
+                git pull https://LinuxServer-CI:${GITHUB_TOKEN}@github.com/${LS_USER}/${LS_REPO}.git readme-test
+                git push https://LinuxServer-CI:${GITHUB_TOKEN}@github.com/${LS_USER}/${LS_REPO}.git readme-test
+                echo "true" > /tmp/${COMMIT_SHA}-${BUILD_NUMBER}
+                echo "Updating templates and exiting build, new one will trigger based on commit"
+                rm -Rf ${TEMPDIR}
+                exit 0
+              else
+                echo "Init diagram is unchanged"
+              fi'''
+        script{
+          env.FILES_UPDATED = sh(
+            script: '''cat /tmp/${COMMIT_SHA}-${BUILD_NUMBER}''',
+            returnStdout: true).trim()
+        }
+      }
+    }
+    // Use helper containers to render templated files
     stage('Update-Templates') {
       when {
         branch "master"
@@ -458,7 +513,7 @@ pipeline {
     // Exit the build if the Templated files were just updated
     stage('Template-exit') {
       when {
-        branch "master"
+        branch "readme-master"
         environment name: 'CHANGE_ID', value: ''
         environment name: 'FILES_UPDATED', value: 'true'
         expression {
