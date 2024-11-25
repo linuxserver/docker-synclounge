@@ -31,9 +31,6 @@ app_setup_block: |
   The web app and the server are both accessible at `http://SERVERIP:8088`.
 
   Note: It is recommended to use `http` as the external proto with a reverse proxy due to `https` not working with external plex clients.
-# init diagram
-init_diagram:
-
 # changelog
 changelogs:
   - {date: "04.06.24:", desc: "Rebase to Alpine 3.20."}
