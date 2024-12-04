@@ -67,7 +67,7 @@ fresh                         0.5.2                  npm
 function-bind                 1.1.2                  npm                    
 get-caller-file               2.0.5                  npm                    
 get-intrinsic                 1.2.4                  npm                    
-gopd                          1.1.0                  npm                    
+gopd                          1.2.0                  npm                    
 has-property-descriptors      1.0.2                  npm                    
 has-proto                     1.1.0                  npm                    
 has-symbols                   1.1.0                  npm                    
