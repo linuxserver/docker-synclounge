@@ -1,6 +1,6 @@
 # syntax=docker/dockerfile:1
 
-FROM ghcr.io/linuxserver/baseimage-alpine:3.20
+FROM ghcr.io/linuxserver/baseimage-alpine:3.21
 
 # set version label
 ARG BUILD_DATE
@@ -24,7 +24,7 @@ RUN \
   echo "**** install SyncLounge ****" && \
   if [ -z ${SYNCLOUNGE_RELEASE+x} ]; then \
     SYNCLOUNGE_RELEASE=$(curl -sX GET "https://registry.npmjs.org/synclounge/" \
-    | jq -r '."dist-tags".latest'); \
+      | jq -r '."dist-tags".latest'); \
   fi && \
   npm install -g --omit=dev synclounge@"$SYNCLOUNGE_RELEASE" && \
   npm prune --omit=dev && \
