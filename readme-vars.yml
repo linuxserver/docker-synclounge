@@ -74,6 +74,7 @@ init_diagram: |
   "synclounge:latest" <- Base Images
 # changelog
 changelogs:
+  - {date: "05.12.24:", desc: "Rebase to Alpine 3.21."}
   - {date: "04.06.24:", desc: "Rebase to Alpine 3.20."}
   - {date: "26.08.23:", desc: "Rebase to Alpine 3.19. Remove deprecated `AUTOJOIN_ENABLED` & `AUTOJOIN_ROOM` options."}
   - {date: "26.08.23:", desc: "Rebase to Alpine 3.18."}
