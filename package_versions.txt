@@ -28,7 +28,7 @@ c-ares                        1.34.3-r0         apk
 ca-certificates               20241010-r0       apk                    
 ca-certificates-bundle        20241010-r0       apk                    
 call-bind                     1.0.8             npm                    
-call-bind-apply-helpers       1.0.0             npm                    
+call-bind-apply-helpers       1.0.1             npm                    
 catatonit                     0.2.0-r0          apk                    
 cliui                         7.0.4             npm                    
 color-convert                 2.0.1             npm                    
@@ -49,6 +49,7 @@ debug                         4.3.7             npm   (+3 duplicates)
 define-data-property          1.1.4             npm                    
 depd                          2.0.0             npm                    
 destroy                       1.2.0             npm                    
+dunder-proto                  1.0.0             npm                    
 ee-first                      1.1.1             npm                    
 emoji-regex                   8.0.0             npm                    
 encodeurl                     1.0.2             npm                    
@@ -56,7 +57,7 @@ encodeurl                     2.0.0             npm
 engine.io                     6.6.2             npm                    
 engine.io-parser              5.2.3             npm                    
 engine.io-parser              UNKNOWN           npm   (+1 duplicate)   
-es-define-property            1.0.0             npm                    
+es-define-property            1.0.1             npm                    
 es-errors                     1.3.0             npm                    
 escalade                      3.2.0             npm                    
 escape-html                   1.0.3             npm                    
@@ -68,10 +69,9 @@ forwarded                     0.2.0             npm
 fresh                         0.5.2             npm                    
 function-bind                 1.1.2             npm                    
 get-caller-file               2.0.5             npm                    
-get-intrinsic                 1.2.4             npm                    
+get-intrinsic                 1.2.5             npm                    
 gopd                          1.2.0             npm                    
 has-property-descriptors      1.0.2             npm                    
-has-proto                     1.1.0             npm                    
 has-symbols                   1.1.0             npm                    
 hasown                        2.0.2             npm                    
 http-errors                   2.0.0             npm                    
