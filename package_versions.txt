@@ -97,7 +97,7 @@ libssl3                       3.3.2-r4          apk
 libstdc++                     14.2.0-r4         apk                    
 libunistring                  1.2-r0            apk                    
 linux-pam                     1.6.1-r1          apk                    
-math-intrinsics               1.0.0             npm                    
+math-intrinsics               1.1.0             npm                    
 media-typer                   0.3.0             npm                    
 merge-descriptors             1.0.3             npm                    
 methods                       1.1.2             npm                    
