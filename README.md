@@ -63,6 +63,14 @@ The web app and the server are both accessible at `http://SERVERIP:8088`.
 
 Note: It is recommended to use `http` as the external proto with a reverse proxy due to `https` not working with external plex clients.
 
+## Read-Only Operation
+
+This image can be run with a read-only container filesystem. For details please [read the docs](https://docs.linuxserver.io/misc/read-only/).
+
+## Non-Root Operation
+
+This image can be run with a non-root user. For details please [read the docs](https://docs.linuxserver.io/misc/non-root/).
+
 ## Usage
 
 To help you get started creating a container from this image you can either use docker-compose or the docker cli.
@@ -104,6 +112,8 @@ Containers are configured using parameters passed at runtime (such as those abov
 | :----: | --- |
 | `-p 8088:8088` | Web app and server port |
 | `-e AUTH_LIST=plexuser1,plexuser2,email1,machineid1` | If set, only the users defined here and the users of the plex servers defined here will be able to access the server. Use e-mails, plex usernames and/or plex server machine ids, comma separated, no spaces. |
+| `--read-only=true` | Run container with a read-only filesystem. Please [read the docs](https://docs.linuxserver.io/misc/read-only/). |
+| `--user=1000:1000` | Run container with a non-root user. Please [read the docs](https://docs.linuxserver.io/misc/non-root/). |
 
 ## Environment variables from files (Docker secrets)
 
@@ -249,6 +259,7 @@ Once registered you can define the dockerfile to use with `-f Dockerfile.aarch64
 
 ## Versions
 
+* **19.12.24:** - Add support for read-only and non-root operation.
 * **05.12.24:** - Rebase to Alpine 3.21.
 * **04.06.24:** - Rebase to Alpine 3.20.
 * **26.08.23:** - Rebase to Alpine 3.19. Remove deprecated `AUTOJOIN_ENABLED` & `AUTOJOIN_ROOM` options.

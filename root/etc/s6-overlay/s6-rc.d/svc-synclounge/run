@@ -6,6 +6,12 @@ if [ -n "${AUTH_LIST}" ]; then
     export authentication__authorized="[\"$(echo ${AUTH_LIST} | sed 's|,|", "|g')\"]"
 fi
 
-exec \
-    s6-notifyoncheck -d -n 300 -w 1000 -c "nc -z localhost 8088" \
-        s6-setuidgid abc synclounge
+if [[ -z ${LSIO_NON_ROOT_USER} ]]; then
+    exec \
+        s6-notifyoncheck -d -n 300 -w 1000 -c "nc -z localhost 8088" \
+            s6-setuidgid abc synclounge
+else
+    exec \
+        s6-notifyoncheck -d -n 300 -w 1000 -c "nc -z localhost 8088" \
+            synclounge
+fi
