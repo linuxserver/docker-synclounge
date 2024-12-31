@@ -20,7 +20,7 @@ base64id                      2.0.0             npm
 bash                          5.2.37-r0         apk                    
 body-parser                   1.20.3            npm                    
 brotli-libs                   1.1.0-r2          apk                    
-bufferutil                    4.0.8             npm                    
+bufferutil                    4.0.9             npm                    
 busybox                       1.37.0-r9         apk                    
 busybox-binsh                 1.37.0-r9         apk                    
 bytes                         3.1.2             npm                    
@@ -169,4 +169,4 @@ y18n                          5.0.8             npm
 yargs                         16.2.0            npm                    
 yargs-parser                  20.2.9            npm                    
 zlib                          1.3.1-r2          apk                    
-zstd-libs                     1.5.6-r1          apk                    
+zstd-libs                     1.5.6-r2          apk                    
