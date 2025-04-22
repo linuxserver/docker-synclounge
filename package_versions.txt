@@ -146,7 +146,7 @@ skalibs-libs                  2.14.3.0-r0       apk
 socket.io                     4.8.1             npm                    
 socket.io-adapter             2.5.5             npm                    
 socket.io-parser              4.2.4             npm                    
-sqlite-libs                   3.48.0-r0         apk                    
+sqlite-libs                   3.48.0-r1         apk                    
 ssl_client                    1.37.0-r12        apk                    
 statuses                      2.0.1             npm                    
 string-width                  4.2.3             npm                    
