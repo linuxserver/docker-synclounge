@@ -2,7 +2,8 @@ NAME                          VERSION           TYPE
 @socket.io/component-emitter  3.1.2             npm                    
 @socket.io/component-emitter  UNKNOWN           npm   (+1 duplicate)   
 @types/cors                   2.8.19            npm                    
-@types/node                   25.3.3            npm                    
+@types/node                   25.4.0            npm                    
+@types/ws                     8.18.1            npm                    
 accepts                       1.3.8             npm                    
 acl-libs                      2.3.2-r1          apk                    
 ada-libs                      2.9.2-r1          apk                    
@@ -50,7 +51,7 @@ dunder-proto                  1.0.1             npm
 ee-first                      1.1.1             npm                    
 emoji-regex                   8.0.0             npm                    
 encodeurl                     2.0.0             npm                    
-engine.io                     6.6.5             npm                    
+engine.io                     6.6.6             npm                    
 engine.io-parser              5.2.3             npm                    
 engine.io-parser              UNKNOWN           npm   (+1 duplicate)   
 es-define-property            1.0.1             npm                    
@@ -153,7 +154,7 @@ synclounge                    5.2.35            npm
 syncloungeserver              8.0.88            npm                    
 toidentifier                  1.0.1             npm                    
 type-is                       1.6.18            npm                    
-tzdata                        2025c-r0          apk                    
+tzdata                        2026a-r0          apk                    
 undici-types                  7.18.2            npm                    
 unpipe                        1.0.0             npm                    
 utf-8-validate                6.0.6             npm                    
