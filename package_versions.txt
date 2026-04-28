@@ -18,7 +18,7 @@ array-flatten                 1.1.1             npm
 async                         3.2.6             npm                    
 base64id                      2.0.0             npm                    
 bash                          5.2.37-r0         apk                    
-body-parser                   1.20.4            npm                    
+body-parser                   1.20.5            npm                    
 brotli-libs                   1.1.0-r2          apk                    
 bufferutil                    4.1.0             npm                    
 busybox                       1.37.0-r14        apk                    
@@ -51,7 +51,7 @@ dunder-proto                  1.0.1             npm
 ee-first                      1.1.1             npm                    
 emoji-regex                   8.0.0             npm                    
 encodeurl                     2.0.0             npm                    
-engine.io                     6.6.6             npm                    
+engine.io                     6.6.7             npm                    
 engine.io-parser              5.2.3             npm                    
 engine.io-parser              UNKNOWN           npm   (+1 duplicate)   
 es-define-property            1.0.1             npm                    
@@ -123,6 +123,7 @@ path-to-regexp                0.1.13            npm
 procps-ng                     4.0.4-r2          apk                    
 proxy-addr                    2.0.7             npm                    
 qs                            6.14.2            npm                    
+qs                            6.15.1            npm                    
 range-parser                  1.2.1             npm                    
 raw-body                      2.5.3             npm                    
 readline                      8.2.13-r0         apk                    
