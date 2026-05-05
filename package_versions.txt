@@ -155,7 +155,7 @@ synclounge                    5.2.35            npm
 syncloungeserver              8.0.88            npm                    
 toidentifier                  1.0.1             npm                    
 type-is                       1.6.18            npm                    
-tzdata                        2026a-r0          apk                    
+tzdata                        2026b-r0          apk                    
 undici-types                  7.19.2            npm                    
 unpipe                        1.0.0             npm                    
 utf-8-validate                6.0.6             npm                    
