@@ -2,7 +2,7 @@ NAME                          VERSION           TYPE
 @socket.io/component-emitter  3.1.2             npm                    
 @socket.io/component-emitter  UNKNOWN           npm   (+1 duplicate)   
 @types/cors                   2.8.19            npm                    
-@types/node                   25.9.2            npm                    
+@types/node                   25.9.3            npm                    
 @types/ws                     8.18.1            npm                    
 accepts                       1.3.8             npm                    
 acl-libs                      2.3.2-r1          apk                    
@@ -51,7 +51,7 @@ dunder-proto                  1.0.1             npm
 ee-first                      1.1.1             npm                    
 emoji-regex                   8.0.0             npm                    
 encodeurl                     2.0.0             npm                    
-engine.io                     6.6.8             npm                    
+engine.io                     6.6.9             npm                    
 engine.io-parser              5.2.3             npm                    
 engine.io-parser              UNKNOWN           npm   (+1 duplicate)   
 es-define-property            1.0.1             npm                    
@@ -143,7 +143,7 @@ simdjson                      3.10.1-r0         apk
 simdutf                       5.6.3-r0          apk                    
 skalibs-libs                  2.14.3.0-r0       apk                    
 socket.io                     4.8.3             npm                    
-socket.io-adapter             2.5.7             npm                    
+socket.io-adapter             2.5.8             npm                    
 socket.io-parser              4.2.6             npm                    
 sqlite-libs                   3.48.0-r4         apk                    
 ssl_client                    1.37.0-r14        apk                    
@@ -163,7 +163,7 @@ utmps-libs                    0.1.2.3-r2        apk
 uuid                          10.0.0            npm                    
 vary                          1.1.2             npm                    
 wrap-ansi                     7.0.0             npm                    
-ws                            8.20.1            npm                    
+ws                            8.21.0            npm                    
 y18n                          5.0.8             npm                    
 yargs                         16.2.0            npm                    
 yargs-parser                  20.2.9            npm                    
