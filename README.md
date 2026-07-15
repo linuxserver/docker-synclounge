@@ -256,6 +256,7 @@ Once registered you can define the dockerfile to use with `-f Dockerfile.aarch64
 
 ## Versions
 
+* **15.07.26:** - Rebase to Alpine 3.24.
 * **19.12.24:** - Add support for read-only and non-root operation.
 * **05.12.24:** - Rebase to Alpine 3.21.
 * **04.06.24:** - Rebase to Alpine 3.20.
