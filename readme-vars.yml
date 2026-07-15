@@ -65,7 +65,7 @@ init_diagram: |
     svc-synclounge -> legacy-services
   }
   Base Images: {
-    "baseimage-alpine:3.21"
+    "baseimage-alpine:3.24"
   }
   "synclounge:latest" <- Base Images
 # changelog
