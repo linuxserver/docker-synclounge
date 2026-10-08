@@ -123,6 +123,57 @@ pipeline {
         }
       }
     }
+    /* ############################
+       Bash Function For GHCR Retry
+       ############################ */
+    // Create a reusable script for a ghcr retry bash function
+    stage("Create Bash Function"){
+      steps{
+        sh '''#! /bin/bash
+              # create our retry function
+              retry_ghcr() {
+                local max_attempts=5
+                local base_delay=1
+                local max_delay=30
+                local attempt=1
+
+                while true; do
+                  rm -rf /tmp/cmdstderr
+                  "$@" 2> /tmp/cmdstderr
+                  local exit_code="$?"
+                  if [[ "${exit_code}" = "0" ]]; then
+                    rm -rf /tmp/cmdstderr
+                    return 0
+                  elif cat /tmp/cmdstderr | grep -q -v "retry-after:"; then
+                    cat /tmp/cmdstderr
+                    rm -rf /tmp/cmdstderr
+                    return "$exit_code"
+                  elif (( attempt >= max_attempts )); then
+                    cat /tmp/cmdstderr
+                    rm -rf /tmp/cmdstderr
+                    echo "retry: $* failed after $attempt attempts (exit $exit_code)" >&2
+                    return "$exit_code"
+                  else
+                    # Calculate exponential delay: base * 2^(attempt-1), capped at max_delay
+                    local delay=$(( base_delay * 2 ** (attempt - 1) ))
+                    (( delay > max_delay )) && delay="$max_delay"
+
+                    # Apply full jitter (random delay between 0 and calculated delay)
+                    local wait=$(( RANDOM % (delay + 1) ))
+
+                    cat /tmp/cmdstderr
+                    rm -rf /tmp/cmdstderr
+
+                    echo "retry: attempt $attempt/$max_attempts failed (exit $exit_code); waiting ${wait}s..." >&2
+                    sleep "$wait"
+                    ((attempt++))
+                  fi
+                done
+              }
+              declare -f retry_ghcr > /tmp/retry_ghcr.sh
+           '''
+      }
+    }
     /* #######################
        Package Version Tagging
        ####################### */
@@ -281,6 +332,8 @@ pipeline {
           }
           sh '''curl -sL https://raw.githubusercontent.com/linuxserver/docker-jenkins-builder/master/checkrun.sh | /bin/bash'''
           sh '''#! /bin/bash
+                source /tmp/retry_ghcr.sh
+                retry_ghcr docker pull ghcr.io/linuxserver/baseimage-alpine:3.23
                 docker run --rm \
                   -v ${WORKSPACE}:/mnt \
                   -e AWS_ACCESS_KEY_ID=\"${S3_KEY}\" \
@@ -307,7 +360,8 @@ pipeline {
         sh '''#! /bin/bash
               set -e
               TEMPDIR=$(mktemp -d)
-              docker pull ghcr.io/linuxserver/jenkins-builder:latest
+              source /tmp/retry_ghcr.sh
+              retry_ghcr docker pull ghcr.io/linuxserver/jenkins-builder:latest
               # Cloned repo paths for templating:
               # ${TEMPDIR}/docker-${CONTAINER_NAME}: Cloned branch master of ${LS_USER}/${LS_REPO} for running the jenkins builder on
               # ${TEMPDIR}/repo/${LS_REPO}: Cloned branch master of ${LS_USER}/${LS_REPO} for commiting various templated file changes and pushing back to Github
@@ -366,6 +420,7 @@ pipeline {
                 sed -i 's|^changelogs:|# init diagram\\ninit_diagram:\\n\\n# changelog\\nchangelogs:|' readme-vars.yml
               fi
               mkdir -p ${TEMPDIR}/d2
+              retry_ghcr docker pull ghcr.io/linuxserver/d2-builder:latest
               docker run --rm -v ${TEMPDIR}/d2:/output -e PUID=$(id -u) -e PGID=$(id -g) -e RAW="true" ghcr.io/linuxserver/d2-builder:latest ${CONTAINER_NAME}:latest
               ls -al ${TEMPDIR}/d2
               yq -ei ".init_diagram |= load_str(\\"${TEMPDIR}/d2/${CONTAINER_NAME}-latest.d2\\")" readme-vars.yml
@@ -582,22 +637,25 @@ pipeline {
       steps {
         echo "Running on node: ${NODE_NAME}"
         sh "sed -r -i 's|(^FROM .*)|\\1\\n\\nENV LSIO_FIRST_PARTY=true|g' Dockerfile"
-        sh "docker buildx build \
-          --label \"org.opencontainers.image.created=${GITHUB_DATE}\" \
-          --label \"org.opencontainers.image.authors=linuxserver.io\" \
-          --label \"org.opencontainers.image.url=https://github.com/linuxserver/docker-synclounge/packages\" \
-          --label \"org.opencontainers.image.documentation=https://docs.linuxserver.io/images/docker-synclounge\" \
-          --label \"org.opencontainers.image.source=https://github.com/linuxserver/docker-synclounge\" \
-          --label \"org.opencontainers.image.version=${EXT_RELEASE_CLEAN}-ls${LS_TAG_NUMBER}\" \
-          --label \"org.opencontainers.image.revision=${COMMIT_SHA}\" \
-          --label \"org.opencontainers.image.vendor=linuxserver.io\" \
-          --label \"org.opencontainers.image.licenses=GPL-3.0-only\" \
-          --label \"org.opencontainers.image.ref.name=${COMMIT_SHA}\" \
-          --label \"org.opencontainers.image.title=Synclounge\" \
-          --label \"org.opencontainers.image.description=[Synclounge](https://github.com/samcm/synclounge) is a third party tool that allows you to watch Plex in sync with your friends/family, wherever you are.\" \
-          --no-cache --pull -t ${IMAGE}:${META_TAG} --platform=linux/amd64 \
-          --provenance=true --sbom=true --builder=container --load \
-          --build-arg ${BUILD_VERSION_ARG}=${EXT_RELEASE} --build-arg VERSION=\"${VERSION_TAG}\" --build-arg BUILD_DATE=${GITHUB_DATE} ."
+        sh '''#! /bin/bash
+              source /tmp/retry_ghcr.sh
+              retry_ghcr docker buildx build \
+                --label "org.opencontainers.image.created=${GITHUB_DATE}" \
+                --label "org.opencontainers.image.authors=linuxserver.io" \
+                --label "org.opencontainers.image.url=https://github.com/linuxserver/docker-synclounge/packages" \
+                --label "org.opencontainers.image.documentation=https://docs.linuxserver.io/images/docker-synclounge" \
+                --label "org.opencontainers.image.source=https://github.com/linuxserver/docker-synclounge" \
+                --label "org.opencontainers.image.version=${EXT_RELEASE_CLEAN}-ls${LS_TAG_NUMBER}" \
+                --label "org.opencontainers.image.revision=${COMMIT_SHA}" \
+                --label "org.opencontainers.image.vendor=linuxserver.io" \
+                --label "org.opencontainers.image.licenses=GPL-3.0-only" \
+                --label "org.opencontainers.image.ref.name=${COMMIT_SHA}" \
+                --label "org.opencontainers.image.title=Synclounge" \
+                --label "org.opencontainers.image.description=[Synclounge](https://github.com/samcm/synclounge) is a third party tool that allows you to watch Plex in sync with your friends/family, wherever you are." \
+                --no-cache --pull -t ${IMAGE}:${META_TAG} --platform=linux/amd64 \
+                --provenance=true --sbom=true --builder=container --load \
+                --build-arg ${BUILD_VERSION_ARG}=${EXT_RELEASE} --build-arg VERSION="${VERSION_TAG}" --build-arg BUILD_DATE=${GITHUB_DATE} .
+           '''
         sh '''#! /bin/bash
               set -e
               IFS=',' read -ra CACHE <<< "$BUILDCACHE"
@@ -651,22 +709,25 @@ pipeline {
           steps {
             echo "Running on node: ${NODE_NAME}"
             sh "sed -r -i 's|(^FROM .*)|\\1\\n\\nENV LSIO_FIRST_PARTY=true|g' Dockerfile"
-            sh "docker buildx build \
-              --label \"org.opencontainers.image.created=${GITHUB_DATE}\" \
-              --label \"org.opencontainers.image.authors=linuxserver.io\" \
-              --label \"org.opencontainers.image.url=https://github.com/linuxserver/docker-synclounge/packages\" \
-              --label \"org.opencontainers.image.documentation=https://docs.linuxserver.io/images/docker-synclounge\" \
-              --label \"org.opencontainers.image.source=https://github.com/linuxserver/docker-synclounge\" \
-              --label \"org.opencontainers.image.version=${EXT_RELEASE_CLEAN}-ls${LS_TAG_NUMBER}\" \
-              --label \"org.opencontainers.image.revision=${COMMIT_SHA}\" \
-              --label \"org.opencontainers.image.vendor=linuxserver.io\" \
-              --label \"org.opencontainers.image.licenses=GPL-3.0-only\" \
-              --label \"org.opencontainers.image.ref.name=${COMMIT_SHA}\" \
-              --label \"org.opencontainers.image.title=Synclounge\" \
-              --label \"org.opencontainers.image.description=[Synclounge](https://github.com/samcm/synclounge) is a third party tool that allows you to watch Plex in sync with your friends/family, wherever you are.\" \
-              --no-cache --pull -t ${IMAGE}:amd64-${META_TAG} --platform=linux/amd64 \
-              --provenance=true --sbom=true --builder=container --load \
-              --build-arg ${BUILD_VERSION_ARG}=${EXT_RELEASE} --build-arg VERSION=\"${VERSION_TAG}\" --build-arg BUILD_DATE=${GITHUB_DATE} ."
+            sh '''#! /bin/bash
+                  source /tmp/retry_ghcr.sh
+                  retry_ghcr docker buildx build \
+                    --label "org.opencontainers.image.created=${GITHUB_DATE}" \
+                    --label "org.opencontainers.image.authors=linuxserver.io" \
+                    --label "org.opencontainers.image.url=https://github.com/linuxserver/docker-synclounge/packages" \
+                    --label "org.opencontainers.image.documentation=https://docs.linuxserver.io/images/docker-synclounge" \
+                    --label "org.opencontainers.image.source=https://github.com/linuxserver/docker-synclounge" \
+                    --label "org.opencontainers.image.version=${EXT_RELEASE_CLEAN}-ls${LS_TAG_NUMBER}" \
+                    --label "org.opencontainers.image.revision=${COMMIT_SHA}" \
+                    --label "org.opencontainers.image.vendor=linuxserver.io" \
+                    --label "org.opencontainers.image.licenses=GPL-3.0-only" \
+                    --label "org.opencontainers.image.ref.name=${COMMIT_SHA}" \
+                    --label "org.opencontainers.image.title=Synclounge" \
+                    --label "org.opencontainers.image.description=[Synclounge](https://github.com/samcm/synclounge) is a third party tool that allows you to watch Plex in sync with your friends/family, wherever you are." \
+                    --no-cache --pull -t ${IMAGE}:amd64-${META_TAG} --platform=linux/amd64 \
+                    --provenance=true --sbom=true --builder=container --load \
+                    --build-arg ${BUILD_VERSION_ARG}=${EXT_RELEASE} --build-arg VERSION="${VERSION_TAG}" --build-arg BUILD_DATE=${GITHUB_DATE} .
+               '''
             sh '''#! /bin/bash
                   set -e
                   IFS=',' read -ra CACHE <<< "$BUILDCACHE"
@@ -713,22 +774,25 @@ pipeline {
           steps {
             echo "Running on node: ${NODE_NAME}"
             sh "sed -r -i 's|(^FROM .*)|\\1\\n\\nENV LSIO_FIRST_PARTY=true|g' Dockerfile.aarch64"
-            sh "docker buildx build \
-              --label \"org.opencontainers.image.created=${GITHUB_DATE}\" \
-              --label \"org.opencontainers.image.authors=linuxserver.io\" \
-              --label \"org.opencontainers.image.url=https://github.com/linuxserver/docker-synclounge/packages\" \
-              --label \"org.opencontainers.image.documentation=https://docs.linuxserver.io/images/docker-synclounge\" \
-              --label \"org.opencontainers.image.source=https://github.com/linuxserver/docker-synclounge\" \
-              --label \"org.opencontainers.image.version=${EXT_RELEASE_CLEAN}-ls${LS_TAG_NUMBER}\" \
-              --label \"org.opencontainers.image.revision=${COMMIT_SHA}\" \
-              --label \"org.opencontainers.image.vendor=linuxserver.io\" \
-              --label \"org.opencontainers.image.licenses=GPL-3.0-only\" \
-              --label \"org.opencontainers.image.ref.name=${COMMIT_SHA}\" \
-              --label \"org.opencontainers.image.title=Synclounge\" \
-              --label \"org.opencontainers.image.description=[Synclounge](https://github.com/samcm/synclounge) is a third party tool that allows you to watch Plex in sync with your friends/family, wherever you are.\" \
-              --no-cache --pull -f Dockerfile.aarch64 -t ${IMAGE}:arm64v8-${META_TAG} --platform=linux/arm64 \
-              --provenance=true --sbom=true --builder=container --load \
-              --build-arg ${BUILD_VERSION_ARG}=${EXT_RELEASE} --build-arg VERSION=\"${VERSION_TAG}\" --build-arg BUILD_DATE=${GITHUB_DATE} ."
+            sh '''#! /bin/bash
+                  source /tmp/retry_ghcr.sh
+                  retry_ghcr docker buildx build \
+                    --label "org.opencontainers.image.created=${GITHUB_DATE}" \
+                    --label "org.opencontainers.image.authors=linuxserver.io" \
+                    --label "org.opencontainers.image.url=https://github.com/linuxserver/docker-synclounge/packages" \
+                    --label "org.opencontainers.image.documentation=https://docs.linuxserver.io/images/docker-synclounge" \
+                    --label "org.opencontainers.image.source=https://github.com/linuxserver/docker-synclounge" \
+                    --label "org.opencontainers.image.version=${EXT_RELEASE_CLEAN}-ls${LS_TAG_NUMBER}" \
+                    --label "org.opencontainers.image.revision=${COMMIT_SHA}" \
+                    --label "org.opencontainers.image.vendor=linuxserver.io" \
+                    --label "org.opencontainers.image.licenses=GPL-3.0-only" \
+                    --label "org.opencontainers.image.ref.name=${COMMIT_SHA}" \
+                    --label "org.opencontainers.image.title=Synclounge" \
+                    --label "org.opencontainers.image.description=[Synclounge](https://github.com/samcm/synclounge) is a third party tool that allows you to watch Plex in sync with your friends/family, wherever you are." \
+                    --no-cache --pull -f Dockerfile.aarch64 -t ${IMAGE}:arm64v8-${META_TAG} --platform=linux/arm64 \
+                    --provenance=true --sbom=true --builder=container --load \
+                    --build-arg ${BUILD_VERSION_ARG}=${EXT_RELEASE} --build-arg VERSION="${VERSION_TAG}" --build-arg BUILD_DATE=${GITHUB_DATE} .
+               '''
             sh '''#! /bin/bash
                   set -e
                   IFS=',' read -ra CACHE <<< "$BUILDCACHE"
@@ -794,6 +858,8 @@ pipeline {
                 LOCAL_CONTAINER=${IMAGE}:${META_TAG}
               fi
               touch ${TEMPDIR}/package_versions.txt
+              source /tmp/retry_ghcr.sh
+              retry_ghcr docker pull ghcr.io/anchore/syft:${SYFT_IMAGE_TAG}
               docker run --rm \
                 -v /var/run/docker.sock:/var/run/docker.sock:ro \
                 -v ${TEMPDIR}:/tmp \
@@ -885,10 +951,11 @@ pipeline {
                     CI_DOCKERENV="LSIO_FIRST_PARTY=true"
                   fi
                 fi
-                docker pull ghcr.io/linuxserver/ci:${CITEST_IMAGETAG}
+                source /tmp/retry_ghcr.sh
+                retry_ghcr docker pull ghcr.io/linuxserver/ci:${CITEST_IMAGETAG}
                 if [ "${MULTIARCH}" == "true" ]; then
-                  docker pull ghcr.io/linuxserver/lsiodev-buildcache:arm64v8-${COMMIT_SHA}-${BUILD_NUMBER} --platform=arm64
-                  docker tag ghcr.io/linuxserver/lsiodev-buildcache:arm64v8-${COMMIT_SHA}-${BUILD_NUMBER} ${IMAGE}:arm64v8-${META_TAG}
+                  retry_ghcr docker pull ghcr.io/linuxserver/lsiodev-buildcache:arm64v8-${COMMIT_SHA}-${BUILD_NUMBER} --platform=arm64
+                  retry_ghcr docker tag ghcr.io/linuxserver/lsiodev-buildcache:arm64v8-${COMMIT_SHA}-${BUILD_NUMBER} ${IMAGE}:arm64v8-${META_TAG}
                 fi
                 docker run --rm \
                 --shm-size=1gb \
