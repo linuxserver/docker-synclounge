@@ -775,7 +775,47 @@ pipeline {
             echo "Running on node: ${NODE_NAME}"
             sh "sed -r -i 's|(^FROM .*)|\\1\\n\\nENV LSIO_FIRST_PARTY=true|g' Dockerfile.aarch64"
             sh '''#! /bin/bash
-                  source /tmp/retry_ghcr.sh
+                  # create our retry function
+                  retry_ghcr() {
+                    local max_attempts=5
+                    local base_delay=1
+                    local max_delay=30
+                    local attempt=1
+
+                    while true; do
+                      rm -rf /tmp/cmdstderr
+                      "$@" 2> /tmp/cmdstderr
+                      local exit_code="$?"
+                      if [[ "${exit_code}" = "0" ]]; then
+                        rm -rf /tmp/cmdstderr
+                        return 0
+                      elif cat /tmp/cmdstderr | grep -q -v "retry-after:"; then
+                        cat /tmp/cmdstderr
+                        rm -rf /tmp/cmdstderr
+                        return "$exit_code"
+                      elif (( attempt >= max_attempts )); then
+                        cat /tmp/cmdstderr
+                        rm -rf /tmp/cmdstderr
+                        echo "retry: $* failed after $attempt attempts (exit $exit_code)" >&2
+                        return "$exit_code"
+                      else
+                        # Calculate exponential delay: base * 2^(attempt-1), capped at max_delay
+                        local delay=$(( base_delay * 2 ** (attempt - 1) ))
+                        (( delay > max_delay )) && delay="$max_delay"
+
+                        # Apply full jitter (random delay between 0 and calculated delay)
+                        local wait=$(( RANDOM % (delay + 1) ))
+
+                        cat /tmp/cmdstderr
+                        rm -rf /tmp/cmdstderr
+
+                        echo "retry: attempt $attempt/$max_attempts failed (exit $exit_code); waiting ${wait}s..." >&2
+                        sleep "$wait"
+                        ((attempt++))
+                      fi
+                    done
+                  }
+                  declare -f retry_ghcr > /tmp/retry_ghcr.sh
                   retry_ghcr docker buildx build \
                     --label "org.opencontainers.image.created=${GITHUB_DATE}" \
                     --label "org.opencontainers.image.authors=linuxserver.io" \
