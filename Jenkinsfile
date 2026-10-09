@@ -139,17 +139,15 @@ pipeline {
 
                 while true; do
                   rm -rf /tmp/cmdstderr
-                  "$@" 2> /tmp/cmdstderr
+                  "$@" 2> >(tee /tmp/cmdstderr)
                   local exit_code="$?"
                   if [[ "${exit_code}" = "0" ]]; then
                     rm -rf /tmp/cmdstderr
                     return 0
                   elif cat /tmp/cmdstderr | grep -q -v "retry-after:"; then
-                    cat /tmp/cmdstderr
                     rm -rf /tmp/cmdstderr
                     return "$exit_code"
                   elif (( attempt >= max_attempts )); then
-                    cat /tmp/cmdstderr
                     rm -rf /tmp/cmdstderr
                     echo "retry: $* failed after $attempt attempts (exit $exit_code)" >&2
                     return "$exit_code"
@@ -161,7 +159,6 @@ pipeline {
                     # Apply full jitter (random delay between 0 and calculated delay)
                     local wait=$(( RANDOM % (delay + 1) ))
 
-                    cat /tmp/cmdstderr
                     rm -rf /tmp/cmdstderr
 
                     echo "retry: attempt $attempt/$max_attempts failed (exit $exit_code); waiting ${wait}s..." >&2
@@ -725,7 +722,7 @@ pipeline {
                     --label "org.opencontainers.image.title=Synclounge" \
                     --label "org.opencontainers.image.description=[Synclounge](https://github.com/samcm/synclounge) is a third party tool that allows you to watch Plex in sync with your friends/family, wherever you are." \
                     --no-cache --pull -t ${IMAGE}:amd64-${META_TAG} --platform=linux/amd64 \
-                    --provenance=true --sbom=true --builder=container --load --progress=plain \
+                    --provenance=true --sbom=true --builder=container --load \
                     --build-arg ${BUILD_VERSION_ARG}=${EXT_RELEASE} --build-arg VERSION="${VERSION_TAG}" --build-arg BUILD_DATE=${GITHUB_DATE} .
                '''
             sh '''#! /bin/bash
@@ -784,17 +781,15 @@ pipeline {
 
                     while true; do
                       rm -rf /tmp/cmdstderr
-                      "$@" 2> /tmp/cmdstderr
+                      "$@" 2> >(tee /tmp/cmdstderr)
                       local exit_code="$?"
                       if [[ "${exit_code}" = "0" ]]; then
                         rm -rf /tmp/cmdstderr
                         return 0
                       elif cat /tmp/cmdstderr | grep -q -v "retry-after:"; then
-                        cat /tmp/cmdstderr
                         rm -rf /tmp/cmdstderr
                         return "$exit_code"
                       elif (( attempt >= max_attempts )); then
-                        cat /tmp/cmdstderr
                         rm -rf /tmp/cmdstderr
                         echo "retry: $* failed after $attempt attempts (exit $exit_code)" >&2
                         return "$exit_code"
@@ -806,7 +801,6 @@ pipeline {
                         # Apply full jitter (random delay between 0 and calculated delay)
                         local wait=$(( RANDOM % (delay + 1) ))
 
-                        cat /tmp/cmdstderr
                         rm -rf /tmp/cmdstderr
 
                         echo "retry: attempt $attempt/$max_attempts failed (exit $exit_code); waiting ${wait}s..." >&2
@@ -830,7 +824,7 @@ pipeline {
                     --label "org.opencontainers.image.title=Synclounge" \
                     --label "org.opencontainers.image.description=[Synclounge](https://github.com/samcm/synclounge) is a third party tool that allows you to watch Plex in sync with your friends/family, wherever you are." \
                     --no-cache --pull -f Dockerfile.aarch64 -t ${IMAGE}:arm64v8-${META_TAG} --platform=linux/arm64 \
-                    --provenance=true --sbom=true --builder=container --load --progress=plain \
+                    --provenance=true --sbom=true --builder=container --load \
                     --build-arg ${BUILD_VERSION_ARG}=${EXT_RELEASE} --build-arg VERSION="${VERSION_TAG}" --build-arg BUILD_DATE=${GITHUB_DATE} .
                '''
             sh '''#! /bin/bash
