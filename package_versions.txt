@@ -2,7 +2,7 @@ NAME                          VERSION           TYPE
 @socket.io/component-emitter  3.1.2             npm                    
 @socket.io/component-emitter  UNKNOWN           npm   (+1 duplicate)   
 @types/cors                   2.8.19            npm                    
-@types/node                   26.6.6            npm                    
+@types/node                   26.6.7            npm                    
 @types/ws                     8.18.2            npm                    
 accepts                       1.3.8             npm                    
 acl-libs                      2.3.2-r1          apk                    
@@ -49,8 +49,8 @@ destroy                       1.2.0             npm
 dunder-proto                  1.0.1             npm                    
 ee-first                      1.1.1             npm                    
 emoji-regex                   8.0.0             npm                    
-encodeurl                     2.0.1             npm                    
-engine.io                     6.6.11            npm                    
+encodeurl                     2.0.3             npm                    
+engine.io                     6.6.13            npm                    
 engine.io-parser              5.2.3             npm                    
 engine.io-parser              UNKNOWN           npm   (+1 duplicate)   
 es-define-property            1.0.1             npm                    
@@ -83,7 +83,7 @@ jq                            1.8.2-r0          apk
 libapk                        3.0.9-r0          apk                    
 libattr                       2.5.2-r2          apk                    
 libbsd                        0.12.2-r0         apk                    
-libcrypto3                    3.5.9-r0          apk                    
+libcrypto3                    3.5.9-r1          apk                    
 libcurl                       8.23.0-r0         apk                    
 libgcc                        15.2.0-r5         apk                    
 libidn2                       2.3.8-r0          apk                    
@@ -92,7 +92,7 @@ libmd                         1.2.0-r0          apk
 libncursesw                   6.6_p20260516-r0  apk                    
 libproc2                      4.0.6-r0          apk                    
 libpsl                        0.21.5-r3         apk                    
-libssl3                       3.5.9-r0          apk                    
+libssl3                       3.5.9-r1          apk                    
 libstdc++                     15.2.0-r5         apk                    
 libunistring                  1.4.2-r0          apk                    
 linux-pam                     1.7.1-r2          apk                    
@@ -113,9 +113,9 @@ negotiator                    0.6.3             npm
 netcat-openbsd                1.234.1-r0        apk                    
 nghttp2-libs                  1.70.0-r0         apk                    
 node-gyp-build                4.8.4             npm                    
-nodejs                        24.22.1-r1        apk                    
+nodejs                        24.22.3-r0        apk                    
 object-assign                 4.1.1             npm                    
-object-inspect                1.13.4            npm                    
+object-inspect                1.14.0            npm                    
 on-finished                   2.4.2             npm                    
 oniguruma                     6.9.10-r0         apk                    
 parseurl                      1.3.3             npm                    
@@ -143,7 +143,7 @@ simdjson                      4.2.4-r0          apk
 simdutf                       9.0.0-r0          apk                    
 skalibs-libs                  2.15.0.0-r0       apk                    
 socket.io                     4.8.4             npm                    
-socket.io-adapter             2.5.8             npm                    
+socket.io-adapter             2.5.9             npm                    
 socket.io-parser              4.2.7             npm                    
 sqlite-libs                   3.53.4-r0         apk                    
 ssl_client                    1.37.0-r31        apk                    
@@ -157,13 +157,13 @@ type-is                       1.6.18            npm
 tzdata                        2026f-r0          apk                    
 undici-types                  8.9.0             npm                    
 unpipe                        1.0.0             npm                    
-utf-8-validate                6.0.6             npm                    
+utf-8-validate                6.1.0             npm                    
 utils-merge                   1.0.1             npm                    
 utmps-libs                    0.1.3.3-r0        apk                    
 uuid                          10.0.0            npm                    
 vary                          1.1.2             npm                    
 wrap-ansi                     7.0.0             npm                    
-ws                            8.21.3            npm                    
+ws                            8.23.0            npm                    
 y18n                          5.0.8             npm                    
 yargs                         16.2.2            npm                    
 yargs-parser                  20.2.9            npm                    
